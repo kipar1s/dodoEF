@@ -28,49 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DodoMainForm));
-            toolStrip1 = new ToolStrip();
-            tsB_Spravochnik = new ToolStripButton();
-            toolStrip1.SuspendLayout();
+            menuStrip1 = new MenuStrip();
+            справочникToolStripMenuItem = new ToolStripMenuItem();
+            сотрудникиToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // toolStrip1
+            // menuStrip1
             // 
-            toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { tsB_Spravochnik });
-            toolStrip1.Location = new Point(0, 0);
-            toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(800, 27);
-            toolStrip1.TabIndex = 0;
-            toolStrip1.Text = "toolStripMain";
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { справочникToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(800, 28);
+            menuStrip1.TabIndex = 2;
+            menuStrip1.Text = "menuStrip1";
             // 
-            // tsB_Spravochnik
+            // справочникToolStripMenuItem
             // 
-            tsB_Spravochnik.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            tsB_Spravochnik.Image = (Image)resources.GetObject("tsB_Spravochnik.Image");
-            tsB_Spravochnik.ImageTransparentColor = Color.Magenta;
-            tsB_Spravochnik.Name = "tsB_Spravochnik";
-            tsB_Spravochnik.Size = new Size(98, 24);
-            tsB_Spravochnik.Text = "Справочник";
+            справочникToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сотрудникиToolStripMenuItem });
+            справочникToolStripMenuItem.Name = "справочникToolStripMenuItem";
+            справочникToolStripMenuItem.Size = new Size(108, 24);
+            справочникToolStripMenuItem.Text = "Справочник";
+            // 
+            // сотрудникиToolStripMenuItem
+            // 
+            сотрудникиToolStripMenuItem.Name = "сотрудникиToolStripMenuItem";
+            сотрудникиToolStripMenuItem.Size = new Size(224, 26);
+            сотрудникиToolStripMenuItem.Text = "Сотрудники";
+            сотрудникиToolStripMenuItem.Click += сотрудникиToolStripMenuItem_Click;
             // 
             // DodoMainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(toolStrip1);
+            Controls.Add(menuStrip1);
             IsMdiContainer = true;
+            MainMenuStrip = menuStrip1;
             Name = "DodoMainForm";
             Text = "Додо Пиица";
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private ToolStrip toolStrip1;
-        private ToolStripButton tsB_Spravochnik;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem справочникToolStripMenuItem;
+        private ToolStripMenuItem сотрудникиToolStripMenuItem;
     }
 }
