@@ -1,8 +1,8 @@
 namespace dodoEF
 {
-    public partial class Form1 : Form
+    public partial class DodoMainForm : Form
     {
-        public Form1()
+        public DodoMainForm()
         {
             InitializeComponent();
         }
