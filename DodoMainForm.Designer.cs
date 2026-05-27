@@ -30,28 +30,28 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DodoMainForm));
             toolStrip1 = new ToolStrip();
-            toolStripButton1 = new ToolStripButton();
+            tsB_Spravochnik = new ToolStripButton();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize = new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { tsB_Spravochnik });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(800, 27);
             toolStrip1.TabIndex = 0;
             toolStrip1.Text = "toolStripMain";
             // 
-            // toolStripButton1
+            // tsB_Spravochnik
             // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripButton1.Image = (Image)resources.GetObject("toolStripButton1.Image");
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(80, 24);
-            toolStripButton1.Text = "Create BD";
+            tsB_Spravochnik.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            tsB_Spravochnik.Image = (Image)resources.GetObject("tsB_Spravochnik.Image");
+            tsB_Spravochnik.ImageTransparentColor = Color.Magenta;
+            tsB_Spravochnik.Name = "tsB_Spravochnik";
+            tsB_Spravochnik.Size = new Size(98, 24);
+            tsB_Spravochnik.Text = "Справочник";
             // 
             // DodoMainForm
             // 
@@ -59,6 +59,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(toolStrip1);
+            IsMdiContainer = true;
             Name = "DodoMainForm";
             Text = "Додо Пиица";
             toolStrip1.ResumeLayout(false);
@@ -70,6 +71,6 @@
         #endregion
 
         private ToolStrip toolStrip1;
-        private ToolStripButton toolStripButton1;
+        private ToolStripButton tsB_Spravochnik;
     }
 }
