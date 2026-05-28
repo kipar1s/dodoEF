@@ -21,9 +21,10 @@ namespace dodoEF.PersonalForm
 
         }
 
-        public void SetDataSouce(Personal personal)
+        public void SetDataSouce(Personal personal, List<Categori> categoris)
         {
             this.personalBindingSource.DataSource = personal;
+            this.categoriBindingSource.DataSource = categoris;
         }
     }
 }

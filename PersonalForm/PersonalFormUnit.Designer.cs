@@ -32,19 +32,21 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            label4 = new Label();
             label5 = new Label();
             label6 = new Label();
             textBox1 = new TextBox();
+            personalBindingSource = new BindingSource(components);
             textBox2 = new TextBox();
             textBox3 = new TextBox();
-            textBox4 = new TextBox();
             textBox5 = new TextBox();
             textBox6 = new TextBox();
             btn_OK = new Button();
             btn_cancel = new Button();
-            personalBindingSource = new BindingSource(components);
+            label7 = new Label();
+            comB_Categori = new ComboBox();
+            categoriBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -75,15 +77,6 @@
             label3.TabIndex = 2;
             label3.Text = " Стаж";
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(23, 135);
-            label4.Name = "label4";
-            label4.Size = new Size(81, 20);
-            label4.TabIndex = 3;
-            label4.Text = "Категория";
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -110,6 +103,10 @@
             textBox1.Size = new Size(40, 27);
             textBox1.TabIndex = 6;
             // 
+            // personalBindingSource
+            // 
+            personalBindingSource.DataSource = typeof(MyEF.Entities.Personal);
+            // 
             // textBox2
             // 
             textBox2.DataBindings.Add(new Binding("Text", personalBindingSource, "FullName", true));
@@ -125,14 +122,6 @@
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(40, 27);
             textBox3.TabIndex = 8;
-            // 
-            // textBox4
-            // 
-            textBox4.DataBindings.Add(new Binding("Text", personalBindingSource, "Categor", true));
-            textBox4.Location = new Point(112, 132);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(271, 27);
-            textBox4.TabIndex = 9;
             // 
             // textBox5
             // 
@@ -155,7 +144,7 @@
             // btn_OK
             // 
             btn_OK.DialogResult = DialogResult.OK;
-            btn_OK.Location = new Point(68, 239);
+            btn_OK.Location = new Point(59, 271);
             btn_OK.Name = "btn_OK";
             btn_OK.Size = new Size(94, 29);
             btn_OK.TabIndex = 12;
@@ -165,39 +154,60 @@
             // btn_cancel
             // 
             btn_cancel.DialogResult = DialogResult.Cancel;
-            btn_cancel.Location = new Point(289, 239);
+            btn_cancel.Location = new Point(280, 271);
             btn_cancel.Name = "btn_cancel";
             btn_cancel.Size = new Size(94, 29);
             btn_cancel.TabIndex = 13;
             btn_cancel.Text = "Отмена";
             btn_cancel.UseVisualStyleBackColor = true;
             // 
-            // personalBindingSource
+            // label7
             // 
-            personalBindingSource.DataSource = typeof(MyEF.Entities.Personal);
+            label7.AutoSize = true;
+            label7.Location = new Point(23, 132);
+            label7.Name = "label7";
+            label7.Size = new Size(81, 20);
+            label7.TabIndex = 14;
+            label7.Text = "Категория";
+            // 
+            // comB_Categori
+            // 
+            comB_Categori.DataBindings.Add(new Binding("SelectedItem", personalBindingSource, "categori", true));
+            comB_Categori.DataSource = categoriBindingSource;
+            comB_Categori.DisplayMember = "Tatle";
+            comB_Categori.FormattingEnabled = true;
+            comB_Categori.Location = new Point(112, 132);
+            comB_Categori.Name = "comB_Categori";
+            comB_Categori.Size = new Size(243, 28);
+            comB_Categori.TabIndex = 15;
+            // 
+            // categoriBindingSource
+            // 
+            categoriBindingSource.DataSource = typeof(MyEF.Entities.Categori);
             // 
             // PersonalFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(504, 312);
+            Controls.Add(comB_Categori);
+            Controls.Add(label7);
             Controls.Add(btn_cancel);
             Controls.Add(btn_OK);
             Controls.Add(textBox6);
             Controls.Add(textBox5);
-            Controls.Add(textBox4);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(label6);
             Controls.Add(label5);
-            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "PersonalFormUnit";
             Text = "Форма \"Сотрудник\"";
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -207,17 +217,18 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Label label4;
         private Label label5;
         private Label label6;
         private TextBox textBox1;
         private TextBox textBox2;
         private TextBox textBox3;
-        private TextBox textBox4;
         private TextBox textBox5;
         private TextBox textBox6;
         private BindingSource personalBindingSource;
         private Button btn_OK;
         private Button btn_cancel;
+        private Label label7;
+        private ComboBox comB_Categori;
+        private BindingSource categoriBindingSource;
     }
 }

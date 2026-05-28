@@ -8,6 +8,8 @@ namespace dodoEF.MyEF.Entities
     public class ApplicationContext : DbContext
     {
         public DbSet<Personal> DbPersonal => Set<Personal>();
+        public DbSet<Categori> Categori => Set<Categori>();
+        public DbSet<Oder> Oder => Set<Oder>();
         //Автомотичсекое создание БД если она отсутствует
         public ApplicationContext() =>Database.EnsureCreated();
 

@@ -10,8 +10,12 @@ namespace dodoEF.MyEF.Entities
         public string FullName {  get; set; }
 
         public int Stage {  get; set; }
-        public string Categor { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public int categoriId { get; set; }
+        public Categori categori { get; set; }
+        public List<Oder> oders { get; set; }
+
+        
     }
 }

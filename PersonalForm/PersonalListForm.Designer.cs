@@ -35,15 +35,16 @@
             tsB_Edit = new ToolStripButton();
             tsB_Delite = new ToolStripButton();
             dataGridView1 = new DataGridView();
+            categoriBindingSource = new BindingSource(components);
+            personalBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fullNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             stageDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            categorDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             loginDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             passwordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            personalBindingSource = new BindingSource(components);
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -75,6 +76,7 @@
             tsB_Edit.Name = "tsB_Edit";
             tsB_Edit.Size = new Size(115, 24);
             tsB_Edit.Text = "Редактировать";
+            tsB_Edit.Click += tsB_Edit_Click;
             // 
             // tsB_Delite
             // 
@@ -84,12 +86,13 @@
             tsB_Delite.Name = "tsB_Delite";
             tsB_Delite.Size = new Size(69, 24);
             tsB_Delite.Text = "Удалить";
+            tsB_Delite.Click += tsB_Delite_Click;
             // 
             // dataGridView1
             // 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, stageDataGridViewTextBoxColumn, categorDataGridViewTextBoxColumn, loginDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, stageDataGridViewTextBoxColumn, loginDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn });
             dataGridView1.DataSource = personalBindingSource;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 27);
@@ -98,18 +101,27 @@
             dataGridView1.Size = new Size(800, 423);
             dataGridView1.TabIndex = 1;
             // 
+            // categoriBindingSource
+            // 
+            categoriBindingSource.DataSource = typeof(MyEF.Entities.Categori);
+            // 
+            // personalBindingSource
+            // 
+            personalBindingSource.DataSource = typeof(MyEF.Entities.Personal);
+            // 
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.MinimumWidth = 6;
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
             idDataGridViewTextBoxColumn.Width = 125;
             // 
             // fullNameDataGridViewTextBoxColumn
             // 
             fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
-            fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
+            fullNameDataGridViewTextBoxColumn.HeaderText = "ФИО";
             fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
             fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
             fullNameDataGridViewTextBoxColumn.Width = 125;
@@ -117,23 +129,15 @@
             // stageDataGridViewTextBoxColumn
             // 
             stageDataGridViewTextBoxColumn.DataPropertyName = "Stage";
-            stageDataGridViewTextBoxColumn.HeaderText = "Stage";
+            stageDataGridViewTextBoxColumn.HeaderText = "Стаж";
             stageDataGridViewTextBoxColumn.MinimumWidth = 6;
             stageDataGridViewTextBoxColumn.Name = "stageDataGridViewTextBoxColumn";
             stageDataGridViewTextBoxColumn.Width = 125;
             // 
-            // categorDataGridViewTextBoxColumn
-            // 
-            categorDataGridViewTextBoxColumn.DataPropertyName = "Categor";
-            categorDataGridViewTextBoxColumn.HeaderText = "Categor";
-            categorDataGridViewTextBoxColumn.MinimumWidth = 6;
-            categorDataGridViewTextBoxColumn.Name = "categorDataGridViewTextBoxColumn";
-            categorDataGridViewTextBoxColumn.Width = 125;
-            // 
             // loginDataGridViewTextBoxColumn
             // 
             loginDataGridViewTextBoxColumn.DataPropertyName = "Login";
-            loginDataGridViewTextBoxColumn.HeaderText = "Login";
+            loginDataGridViewTextBoxColumn.HeaderText = "Логин";
             loginDataGridViewTextBoxColumn.MinimumWidth = 6;
             loginDataGridViewTextBoxColumn.Name = "loginDataGridViewTextBoxColumn";
             loginDataGridViewTextBoxColumn.Width = 125;
@@ -141,14 +145,10 @@
             // passwordDataGridViewTextBoxColumn
             // 
             passwordDataGridViewTextBoxColumn.DataPropertyName = "Password";
-            passwordDataGridViewTextBoxColumn.HeaderText = "Password";
+            passwordDataGridViewTextBoxColumn.HeaderText = "Пароль";
             passwordDataGridViewTextBoxColumn.MinimumWidth = 6;
             passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
             passwordDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // personalBindingSource
-            // 
-            personalBindingSource.DataSource = typeof(MyEF.Entities.Personal);
             // 
             // PersonalListForm
             // 
@@ -159,9 +159,11 @@
             Controls.Add(toolStrip1);
             Name = "PersonalListForm";
             Text = "Справочник \"Пользователи\"";
+            FormClosing += PersonalListForm_FormClosing;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -174,12 +176,13 @@
         private ToolStripButton tsB_Edit;
         private ToolStripButton tsB_Delite;
         private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn categorDataGridViewTextBoxColumn;
+        private BindingSource personalBindingSource;
+        private BindingSource categoriBindingSource;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn stageDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn categorDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn loginDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn passwordDataGridViewTextBoxColumn;
-        private BindingSource personalBindingSource;
     }
 }
