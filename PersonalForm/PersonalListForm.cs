@@ -18,6 +18,7 @@ namespace dodoEF.PersonalForm
         {
             InitializeComponent();
             db = new dodoEF.MyEF.Entities.ApplicationContext();
+            this.categoriBindingSource.DataSource = db.Categori.ToList();
             RefreshPersonalGrid();
         }
 

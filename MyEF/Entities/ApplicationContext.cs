@@ -10,6 +10,11 @@ namespace dodoEF.MyEF.Entities
         public DbSet<Personal> DbPersonal => Set<Personal>();
         public DbSet<Categori> Categori => Set<Categori>();
         public DbSet<Oder> Oder => Set<Oder>();
+        public DbSet<Client> Client => Set<Client>();
+        public DbSet<Ingr> Ingr => Set<Ingr>();
+        public DbSet<Tovar> Tovar => Set<Tovar>();
+        public DbSet<Plateg> Plateg => Set<Plateg>();
+        public DbSet<Evelobilitile> Evelobilitile => Set<Evelobilitile>();
         //Автомотичсекое создание БД если она отсутствует
         public ApplicationContext() =>Database.EnsureCreated();
 

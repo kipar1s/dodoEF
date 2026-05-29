@@ -31,6 +31,7 @@
             menuStrip1 = new MenuStrip();
             справочникToolStripMenuItem = new ToolStripMenuItem();
             сотрудникиToolStripMenuItem = new ToolStripMenuItem();
+            заказToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             // 
             // справочникToolStripMenuItem
             // 
-            справочникToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сотрудникиToolStripMenuItem });
+            справочникToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сотрудникиToolStripMenuItem, заказToolStripMenuItem });
             справочникToolStripMenuItem.Name = "справочникToolStripMenuItem";
             справочникToolStripMenuItem.Size = new Size(108, 24);
             справочникToolStripMenuItem.Text = "Справочник";
@@ -57,6 +58,13 @@
             сотрудникиToolStripMenuItem.Size = new Size(224, 26);
             сотрудникиToolStripMenuItem.Text = "Сотрудники";
             сотрудникиToolStripMenuItem.Click += сотрудникиToolStripMenuItem_Click;
+            // 
+            // заказToolStripMenuItem
+            // 
+            заказToolStripMenuItem.Name = "заказToolStripMenuItem";
+            заказToolStripMenuItem.Size = new Size(224, 26);
+            заказToolStripMenuItem.Text = "Заказ";
+            заказToolStripMenuItem.Click += заказToolStripMenuItem_Click;
             // 
             // DodoMainForm
             // 
@@ -79,5 +87,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem справочникToolStripMenuItem;
         private ToolStripMenuItem сотрудникиToolStripMenuItem;
+        private ToolStripMenuItem заказToolStripMenuItem;
     }
 }

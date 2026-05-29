@@ -35,17 +35,18 @@
             tsB_Edit = new ToolStripButton();
             tsB_Delite = new ToolStripButton();
             dataGridView1 = new DataGridView();
-            categoriBindingSource = new BindingSource(components);
             personalBindingSource = new BindingSource(components);
+            categoriBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             fullNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             stageDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             loginDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             passwordDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            categoriId = new DataGridViewComboBoxColumn();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).BeginInit();
             SuspendLayout();
             // 
             // toolStrip1
@@ -92,7 +93,7 @@
             // 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, stageDataGridViewTextBoxColumn, loginDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, stageDataGridViewTextBoxColumn, loginDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn, categoriId });
             dataGridView1.DataSource = personalBindingSource;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 27);
@@ -101,13 +102,13 @@
             dataGridView1.Size = new Size(800, 423);
             dataGridView1.TabIndex = 1;
             // 
-            // categoriBindingSource
-            // 
-            categoriBindingSource.DataSource = typeof(MyEF.Entities.Categori);
-            // 
             // personalBindingSource
             // 
             personalBindingSource.DataSource = typeof(MyEF.Entities.Personal);
+            // 
+            // categoriBindingSource
+            // 
+            categoriBindingSource.DataSource = typeof(MyEF.Entities.Categori);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -150,6 +151,17 @@
             passwordDataGridViewTextBoxColumn.Name = "passwordDataGridViewTextBoxColumn";
             passwordDataGridViewTextBoxColumn.Width = 125;
             // 
+            // categoriId
+            // 
+            categoriId.DataPropertyName = "categoriId";
+            categoriId.DataSource = categoriBindingSource;
+            categoriId.DisplayMember = "Tatle";
+            categoriId.HeaderText = "ID_ Категории";
+            categoriId.MinimumWidth = 6;
+            categoriId.Name = "categoriId";
+            categoriId.ValueMember = "Id";
+            categoriId.Width = 125;
+            // 
             // PersonalListForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -163,8 +175,8 @@
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)categoriBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -184,5 +196,6 @@
         private DataGridViewTextBoxColumn stageDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn loginDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn passwordDataGridViewTextBoxColumn;
+        private DataGridViewComboBoxColumn categoriId;
     }
 }

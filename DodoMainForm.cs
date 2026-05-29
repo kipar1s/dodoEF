@@ -1,4 +1,5 @@
 using dodoEF.MyEF.Entities;
+using dodoEF.OderForm;
 using dodoEF.PersonalForm;
 namespace dodoEF
 {
@@ -21,6 +22,13 @@ namespace dodoEF
             PersonalListForm personal_list_form = new PersonalListForm();
             personal_list_form.MdiParent = this;
             personal_list_form.Show();
+        }
+
+        private void заказToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OderListForm oder_list_form = new OderListForm();
+            oder_list_form.MdiParent = this;
+            oder_list_form.Show();
         }
     }
 }
