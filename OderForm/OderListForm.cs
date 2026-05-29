@@ -24,13 +24,21 @@ namespace dodoEF.OderForm
 
         public void RefreshOderGrid()
         {
-            oders = db.Oder.Include(u => u.client).ToList();
+            oders = db.Oder
+                .AsNoTracking()
+                .Include(u => u.client)
+                .ToList();
             this.oderBindingSource.DataSource = oders;
         }
 
         private void tsB_Create_Click(object sender, EventArgs e)
         {
-
+            OderFormUnit oderFormUnit = new OderFormUnit();
+            if (oderFormUnit.ShowDialog() == DialogResult.OK) { 
+                
+            }
+            ;
+            RefreshOderGrid();
         }
         
 
@@ -39,8 +47,8 @@ namespace dodoEF.OderForm
             int item_id = ((Oder)this.oderBindingSource.Current).Id;
             OderFormUnit oderFormUnit = new OderFormUnit();
             oderFormUnit.EditItem(item_id);
-            oderFormUnit.ShowDialog();
-             RefreshOderGrid();
+            if (oderFormUnit.ShowDialog() == DialogResult.OK) { RefreshOderGrid(); };
+            
         }
 
         private void tsB_Delite_Click(object sender, EventArgs e)

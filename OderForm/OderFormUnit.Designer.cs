@@ -43,7 +43,6 @@
             label2 = new Label();
             label1 = new Label();
             textBox4 = new TextBox();
-            cB_Status = new ComboBox();
             textBox6 = new TextBox();
             label4 = new Label();
             groupBox1 = new GroupBox();
@@ -56,6 +55,7 @@
             catiforiTDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             calloryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tovarBindingSource = new BindingSource(components);
+            cB_Status = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -90,6 +90,7 @@
             btn_OK.TabIndex = 26;
             btn_OK.Text = "OK";
             btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += btn_OK_Click;
             // 
             // textBox5
             // 
@@ -181,17 +182,6 @@
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(143, 27);
             textBox4.TabIndex = 29;
-            // 
-            // cB_Status
-            // 
-            cB_Status.DataSource = oderBindingSource;
-            cB_Status.DisplayMember = "Status";
-            cB_Status.FormattingEnabled = true;
-            cB_Status.Location = new Point(136, 191);
-            cB_Status.Name = "cB_Status";
-            cB_Status.Size = new Size(151, 28);
-            cB_Status.TabIndex = 30;
-            cB_Status.ValueMember = "Status";
             // 
             // textBox6
             // 
@@ -292,6 +282,17 @@
             // 
             tovarBindingSource.DataSource = typeof(MyEF.Entities.Tovar);
             // 
+            // cB_Status
+            // 
+            cB_Status.DataSource = oderBindingSource;
+            cB_Status.DisplayMember = "Status";
+            cB_Status.FormattingEnabled = true;
+            cB_Status.Location = new Point(136, 191);
+            cB_Status.Name = "cB_Status";
+            cB_Status.Size = new Size(151, 28);
+            cB_Status.TabIndex = 30;
+            cB_Status.ValueMember = "Status";
+            // 
             // OderFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -316,6 +317,7 @@
             Controls.Add(label1);
             Name = "OderFormUnit";
             Text = "Форма \"Заказ\"";
+            Load += OderFormUnit_Load;
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).EndInit();
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -339,7 +341,6 @@
         private Label label1;
         private BindingSource oderBindingSource;
         private TextBox textBox4;
-        private ComboBox cB_Status;
         private TextBox textBox6;
         private Label label4;
         private GroupBox groupBox1;
@@ -352,5 +353,6 @@
         private DataGridViewTextBoxColumn catiforiTDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn calloryDataGridViewTextBoxColumn;
         private BindingSource tovarBindingSource;
+        private ComboBox cB_Status;
     }
 }
