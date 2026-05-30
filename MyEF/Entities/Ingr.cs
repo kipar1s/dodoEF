@@ -9,7 +9,8 @@ namespace dodoEF.MyEF.Entities
         public int Id { get; set; }
         public string FullName { get; set; }
         public int Cost { get; set; }
-        public DateTime date { get; set; }        
+        public DateTime date { get; set; }       
         
+        public int Quantity { get; set; }
     }
 }

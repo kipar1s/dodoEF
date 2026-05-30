@@ -41,13 +41,15 @@ namespace dodoEF.OderForm
                 .Include(u => u.tovars)
                 .FirstOrDefault(u => u.Id == item_id);
             this.oderBindingSource.DataSource = this.item;
+            this.tovarBindingSource.DataSource = this.item.tovars;
         }
 
         private void OderFormUnit_Load(object sender, EventArgs e)
         {
             // Заполняем комбобокс
             var statuses = new List<string> { "Доставлено", "Отменен" };
-            cB_Status.DataSource = statuses;   // теперь Items заполнятся автоматически
+            cB_Status.DataSource = statuses; 
+            // теперь Items заполнятся автоматически
 
             // Выбираем текущий статус
             if (is_edit && item != null)
@@ -70,6 +72,9 @@ namespace dodoEF.OderForm
                     tovars = new List<Tovar>(),
                     Status = "Доставлено"   // значение по умолчанию
                 };
+
+                this.oderBindingSource.DataSource = this.item;
+                this.tovarBindingSource.DataSource = this.item.tovars;
             }
 
            
@@ -90,7 +95,8 @@ namespace dodoEF.OderForm
                 return;
             }
 
-            db.Oder.Update(item);
+            this.tovarBindingSource.EndEdit();
+            db.Oder.Update(item);            
             db.SaveChanges();
             DialogResult = DialogResult.OK;
             Close();

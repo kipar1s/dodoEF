@@ -53,7 +53,18 @@ namespace dodoEF.OderForm
 
         private void tsB_Delite_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show(
+                "Подтверждение удаления",
+                "Действительно удалить",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                db.Oder.Remove((Oder)this.oderBindingSource.Current);
+                db.SaveChanges();
+                RefreshOderGrid();
+            }
+            ;
         }
     }
 }

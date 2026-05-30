@@ -47,19 +47,31 @@
             label4 = new Label();
             groupBox1 = new GroupBox();
             dataGridView1 = new DataGridView();
+            tovarBindingSource = new BindingSource(components);
+            ingrBindingSource = new BindingSource(components);
+            cB_Status = new ComboBox();
+            groupBox2 = new GroupBox();
+            dataGridView2 = new DataGridView();
+            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            oderDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            oderidDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            statusPLDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            sposobPLDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            plategBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            ingrDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            ingrIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fullNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            ingrId = new DataGridViewTextBoxColumn();
+            FullName = new DataGridViewTextBoxColumn();
             priceDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             catiforiTDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             calloryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            tovarBindingSource = new BindingSource(components);
-            cB_Status = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ingrBindingSource).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)plategBindingSource).BeginInit();
             SuspendLayout();
             // 
             // label7
@@ -74,9 +86,10 @@
             // btn_cancel
             // 
             btn_cancel.DialogResult = DialogResult.Cancel;
-            btn_cancel.Location = new Point(286, 264);
+            btn_cancel.Font = new Font("Segoe UI", 20F);
+            btn_cancel.Location = new Point(833, 185);
             btn_cancel.Name = "btn_cancel";
-            btn_cancel.Size = new Size(94, 29);
+            btn_cancel.Size = new Size(169, 98);
             btn_cancel.TabIndex = 27;
             btn_cancel.Text = "Отмена";
             btn_cancel.UseVisualStyleBackColor = true;
@@ -84,9 +97,10 @@
             // btn_OK
             // 
             btn_OK.DialogResult = DialogResult.OK;
-            btn_OK.Location = new Point(65, 264);
+            btn_OK.Font = new Font("Segoe UI", 20F);
+            btn_OK.Location = new Point(619, 185);
             btn_OK.Name = "btn_OK";
-            btn_OK.Size = new Size(94, 29);
+            btn_OK.Size = new Size(153, 98);
             btn_OK.TabIndex = 26;
             btn_OK.Text = "OK";
             btn_OK.UseVisualStyleBackColor = true;
@@ -208,12 +222,13 @@
             groupBox1.Size = new Size(1145, 250);
             groupBox1.TabIndex = 33;
             groupBox1.TabStop = false;
+            groupBox1.Text = "Товары в заказе";
             // 
             // dataGridView1
             // 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, ingrDataGridViewTextBoxColumn, ingrIdDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, catiforiTDataGridViewTextBoxColumn, calloryDataGridViewTextBoxColumn });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, ingrId, FullName, priceDataGridViewTextBoxColumn, catiforiTDataGridViewTextBoxColumn, calloryDataGridViewTextBoxColumn });
             dataGridView1.DataSource = tovarBindingSource;
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(3, 23);
@@ -222,65 +237,13 @@
             dataGridView1.Size = new Size(1139, 224);
             dataGridView1.TabIndex = 0;
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // ingrDataGridViewTextBoxColumn
-            // 
-            ingrDataGridViewTextBoxColumn.DataPropertyName = "ingr";
-            ingrDataGridViewTextBoxColumn.HeaderText = "ingr";
-            ingrDataGridViewTextBoxColumn.MinimumWidth = 6;
-            ingrDataGridViewTextBoxColumn.Name = "ingrDataGridViewTextBoxColumn";
-            ingrDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // ingrIdDataGridViewTextBoxColumn
-            // 
-            ingrIdDataGridViewTextBoxColumn.DataPropertyName = "ingrId";
-            ingrIdDataGridViewTextBoxColumn.HeaderText = "ingrId";
-            ingrIdDataGridViewTextBoxColumn.MinimumWidth = 6;
-            ingrIdDataGridViewTextBoxColumn.Name = "ingrIdDataGridViewTextBoxColumn";
-            ingrIdDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // fullNameDataGridViewTextBoxColumn
-            // 
-            fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
-            fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
-            fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
-            fullNameDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            priceDataGridViewTextBoxColumn.MinimumWidth = 6;
-            priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            priceDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // catiforiTDataGridViewTextBoxColumn
-            // 
-            catiforiTDataGridViewTextBoxColumn.DataPropertyName = "Catifori_T";
-            catiforiTDataGridViewTextBoxColumn.HeaderText = "Catifori_T";
-            catiforiTDataGridViewTextBoxColumn.MinimumWidth = 6;
-            catiforiTDataGridViewTextBoxColumn.Name = "catiforiTDataGridViewTextBoxColumn";
-            catiforiTDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // calloryDataGridViewTextBoxColumn
-            // 
-            calloryDataGridViewTextBoxColumn.DataPropertyName = "Callory";
-            calloryDataGridViewTextBoxColumn.HeaderText = "Callory";
-            calloryDataGridViewTextBoxColumn.MinimumWidth = 6;
-            calloryDataGridViewTextBoxColumn.Name = "calloryDataGridViewTextBoxColumn";
-            calloryDataGridViewTextBoxColumn.Width = 125;
-            // 
             // tovarBindingSource
             // 
             tovarBindingSource.DataSource = typeof(MyEF.Entities.Tovar);
+            // 
+            // ingrBindingSource
+            // 
+            ingrBindingSource.DataSource = typeof(MyEF.Entities.Ingr);
             // 
             // cB_Status
             // 
@@ -293,11 +256,137 @@
             cB_Status.TabIndex = 30;
             cB_Status.ValueMember = "Status";
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dataGridView2);
+            groupBox2.Location = new Point(648, 36);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(463, 119);
+            groupBox2.TabIndex = 34;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Оплата заказа";
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.AutoGenerateColumns = false;
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, oderDataGridViewTextBoxColumn, oderidDataGridViewTextBoxColumn, statusPLDataGridViewTextBoxColumn, sposobPLDataGridViewTextBoxColumn });
+            dataGridView2.DataSource = plategBindingSource;
+            dataGridView2.Dock = DockStyle.Fill;
+            dataGridView2.Location = new Point(3, 23);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.RowHeadersWidth = 51;
+            dataGridView2.Size = new Size(457, 93);
+            dataGridView2.TabIndex = 0;
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            idDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            idDataGridViewTextBoxColumn1.ReadOnly = true;
+            idDataGridViewTextBoxColumn1.Visible = false;
+            idDataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // oderDataGridViewTextBoxColumn
+            // 
+            oderDataGridViewTextBoxColumn.DataPropertyName = "oder";
+            oderDataGridViewTextBoxColumn.HeaderText = "oder";
+            oderDataGridViewTextBoxColumn.MinimumWidth = 6;
+            oderDataGridViewTextBoxColumn.Name = "oderDataGridViewTextBoxColumn";
+            oderDataGridViewTextBoxColumn.Visible = false;
+            oderDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // oderidDataGridViewTextBoxColumn
+            // 
+            oderidDataGridViewTextBoxColumn.DataPropertyName = "oderid";
+            oderidDataGridViewTextBoxColumn.HeaderText = "oderid";
+            oderidDataGridViewTextBoxColumn.MinimumWidth = 6;
+            oderidDataGridViewTextBoxColumn.Name = "oderidDataGridViewTextBoxColumn";
+            oderidDataGridViewTextBoxColumn.Visible = false;
+            oderidDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // statusPLDataGridViewTextBoxColumn
+            // 
+            statusPLDataGridViewTextBoxColumn.DataPropertyName = "Status_PL";
+            statusPLDataGridViewTextBoxColumn.HeaderText = "Статус Платежа";
+            statusPLDataGridViewTextBoxColumn.MinimumWidth = 6;
+            statusPLDataGridViewTextBoxColumn.Name = "statusPLDataGridViewTextBoxColumn";
+            statusPLDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.True;
+            statusPLDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // sposobPLDataGridViewTextBoxColumn
+            // 
+            sposobPLDataGridViewTextBoxColumn.DataPropertyName = "Sposob_PL";
+            sposobPLDataGridViewTextBoxColumn.HeaderText = "Способ Оплаты";
+            sposobPLDataGridViewTextBoxColumn.MinimumWidth = 6;
+            sposobPLDataGridViewTextBoxColumn.Name = "sposobPLDataGridViewTextBoxColumn";
+            sposobPLDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.True;
+            sposobPLDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // plategBindingSource
+            // 
+            plategBindingSource.DataSource = typeof(MyEF.Entities.Plateg);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.MinimumWidth = 6;
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            idDataGridViewTextBoxColumn.Visible = false;
+            idDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // ingrId
+            // 
+            ingrId.DataPropertyName = "ingrId";
+            ingrId.HeaderText = "ingrId";
+            ingrId.MinimumWidth = 6;
+            ingrId.Name = "ingrId";
+            ingrId.Width = 125;
+            // 
+            // FullName
+            // 
+            FullName.DataPropertyName = "FullName";
+            FullName.HeaderText = "Название";
+            FullName.MinimumWidth = 6;
+            FullName.Name = "FullName";
+            FullName.Resizable = DataGridViewTriState.True;
+            FullName.SortMode = DataGridViewColumnSortMode.NotSortable;
+            FullName.Width = 125;
+            // 
+            // priceDataGridViewTextBoxColumn
+            // 
+            priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            priceDataGridViewTextBoxColumn.HeaderText = "Цена";
+            priceDataGridViewTextBoxColumn.MinimumWidth = 6;
+            priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            priceDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // catiforiTDataGridViewTextBoxColumn
+            // 
+            catiforiTDataGridViewTextBoxColumn.DataPropertyName = "Catifori_T";
+            catiforiTDataGridViewTextBoxColumn.HeaderText = "Категория товара";
+            catiforiTDataGridViewTextBoxColumn.MinimumWidth = 6;
+            catiforiTDataGridViewTextBoxColumn.Name = "catiforiTDataGridViewTextBoxColumn";
+            catiforiTDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // calloryDataGridViewTextBoxColumn
+            // 
+            calloryDataGridViewTextBoxColumn.DataPropertyName = "Callory";
+            calloryDataGridViewTextBoxColumn.HeaderText = "Каллорийность";
+            calloryDataGridViewTextBoxColumn.MinimumWidth = 6;
+            calloryDataGridViewTextBoxColumn.Name = "calloryDataGridViewTextBoxColumn";
+            calloryDataGridViewTextBoxColumn.Width = 125;
+            // 
             // OderFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1205, 593);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(textBox6);
             Controls.Add(label4);
@@ -322,6 +411,10 @@
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ingrBindingSource).EndInit();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)plategBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -345,14 +438,22 @@
         private Label label4;
         private GroupBox groupBox1;
         private DataGridView dataGridView1;
+        private BindingSource tovarBindingSource;
+        private ComboBox cB_Status;
+        private BindingSource ingrBindingSource;
+        private GroupBox groupBox2;
+        private DataGridView dataGridView2;
+        private BindingSource plategBindingSource;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn oderDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn oderidDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn statusPLDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn sposobPLDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn ingrDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn ingrIdDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn ingrId;
+        private DataGridViewTextBoxColumn FullName;
         private DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn catiforiTDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn calloryDataGridViewTextBoxColumn;
-        private BindingSource tovarBindingSource;
-        private ComboBox cB_Status;
     }
 }
