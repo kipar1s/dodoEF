@@ -12,12 +12,12 @@ namespace dodoEF.PersonalForm
 {
     public partial class PersonalListForm : Form
     {
-        dodoEF.MyEF.Entities.ApplicationContext db;
+        dodoEF.MyEF.Entities.ApplicationDbContext db;
         List<Personal> personals;
         public PersonalListForm()
         {
             InitializeComponent();
-            db = new dodoEF.MyEF.Entities.ApplicationContext();
+            db = new dodoEF.MyEF.Entities.ApplicationDbContext();
             this.categoriBindingSource.DataSource = db.Categori.ToList();
             RefreshPersonalGrid();
         }

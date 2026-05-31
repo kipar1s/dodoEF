@@ -12,12 +12,12 @@ namespace dodoEF.OderForm
 {
     public partial class OderListForm : Form
     {
-        dodoEF.MyEF.Entities.ApplicationContext db;
+        dodoEF.MyEF.Entities.ApplicationDbContext db;
         List<Oder> oders;
         public OderListForm()
         {
             InitializeComponent();
-            db = new dodoEF.MyEF.Entities.ApplicationContext();
+            db = new dodoEF.MyEF.Entities.ApplicationDbContext();
             RefreshOderGrid();
 
         }

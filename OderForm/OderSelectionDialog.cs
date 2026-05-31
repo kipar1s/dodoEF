@@ -14,11 +14,11 @@ namespace dodoEF.OderForm
 {
     public partial class OderSelectionDialog : Form
     {
-        dodoEF.MyEF.Entities.ApplicationContext db;
+        dodoEF.MyEF.Entities.ApplicationDbContext db;
         public OderSelectionDialog()
         {
             InitializeComponent();
-            db = new dodoEF.MyEF.Entities.ApplicationContext();
+            db = new dodoEF.MyEF.Entities.ApplicationDbContext();
             this.clientBindingSource.DataSource = db.Client.ToList();
         }
 

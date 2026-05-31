@@ -14,9 +14,10 @@ namespace dodoEF.MyEF.Entities
         public string Password { get; set; }
         public int categoriId { get; set; }
         public Categori categori { get; set; }
-        public List<Oder> oders { get; set; }
+        public List<Oder> oders { get; set; } = new ();
 
-        public List<Evelobilitile> evelobilitiles { get; set; }
+        // Связь многие-ко-многим с уровнями квалификации (если требуется)
+        public List<PersonalEvelobilitile> PersonalEvelobilitiles { get; set; } = new();
 
     }
 }
