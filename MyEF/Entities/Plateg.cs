@@ -6,10 +6,10 @@ namespace dodoEF.MyEF.Entities
 {
     public class Plateg
     {
-        public int Id { get; set; }
-        public Oder oder { get; set; }
-        public int oderid { get; set; }
+        public int Id { get; set; }        
         public string Status_PL { get; set; }
         public string Sposob_PL { get; set; }
+        // Обратная ссылка на заказ (один-к-одному)
+        public Oder Oder { get; set; }
     }
 }

@@ -8,5 +8,6 @@ namespace dodoEF.MyEF.Entities
     {
         public int Id { get; set; }
         public string Tatle { get; set; }
+        public List<Personal> Personals { get; set; } = new();
     }
 }

@@ -12,6 +12,6 @@ namespace dodoEF.MyEF.Entities
         public string Adress_C { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public List<Oder> oders { get; set; }
+        public List<Oder> oders { get; set; } = new();
     }
 }

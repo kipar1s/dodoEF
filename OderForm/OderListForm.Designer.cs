@@ -35,7 +35,6 @@
             tsB_Edit = new ToolStripButton();
             tsB_Delite = new ToolStripButton();
             dataGridView1 = new DataGridView();
-            oderBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ClietNik = new DataGridViewTextBoxColumn();
             ClietTelefon = new DataGridViewTextBoxColumn();
@@ -43,6 +42,7 @@
             summaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             statusDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             adressdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            oderBindingSource = new BindingSource(components);
             toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
@@ -54,7 +54,7 @@
             toolStrip.Items.AddRange(new ToolStripItem[] { tsB_Create, tsB_Edit, tsB_Delite });
             toolStrip.Location = new Point(0, 0);
             toolStrip.Name = "toolStrip";
-            toolStrip.Size = new Size(1419, 27);
+            toolStrip.Size = new Size(978, 27);
             toolStrip.TabIndex = 0;
             toolStrip.Text = "toolStrip1";
             // 
@@ -98,12 +98,8 @@
             dataGridView1.Location = new Point(0, 27);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1419, 474);
+            dataGridView1.Size = new Size(978, 474);
             dataGridView1.TabIndex = 1;
-            // 
-            // oderBindingSource
-            // 
-            oderBindingSource.DataSource = typeof(MyEF.Entities.Oder);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -164,11 +160,15 @@
             adressdDataGridViewTextBoxColumn.Name = "adressdDataGridViewTextBoxColumn";
             adressdDataGridViewTextBoxColumn.Width = 125;
             // 
+            // oderBindingSource
+            // 
+            oderBindingSource.DataSource = typeof(MyEF.Entities.Oder);
+            // 
             // OderListForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1419, 501);
+            ClientSize = new Size(978, 501);
             Controls.Add(dataGridView1);
             Controls.Add(toolStrip);
             Name = "OderListForm";

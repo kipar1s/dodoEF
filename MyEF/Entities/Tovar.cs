@@ -7,13 +7,15 @@ namespace dodoEF.MyEF.Entities
     public class Tovar
     {
         public int Id { get; set; }
-        public Ingr ingr { get; set; }
-        public int ingrId { get; set; }
         public string FullName { get; set; }        
         public int Price { get; set; }
         public string Catifori_T { get; set; }
         public int Callory { get; set; }
-        public List<Oder> oders { get; set; }
-        //public List<Ingr> ingrs { get; set; }
+        // Связь многие-ко-многим с заказами через OrderTovar
+        public List<OderTovar> OrderTovars { get; set; } = new();
+
+        // Связь многие-ко-многим с ингредиентами через TovarIngr
+        public List<TovarIngr> TovarIngrs { get; set; } = new();
+
     }
 }

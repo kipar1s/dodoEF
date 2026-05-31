@@ -32,16 +32,17 @@
             справочникToolStripMenuItem = new ToolStripMenuItem();
             сотрудникиToolStripMenuItem = new ToolStripMenuItem();
             заказToolStripMenuItem = new ToolStripMenuItem();
+            проверкаБДToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { справочникToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { справочникToolStripMenuItem, проверкаБДToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(800, 28);
+            menuStrip1.Size = new Size(1254, 28);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -55,22 +56,29 @@
             // сотрудникиToolStripMenuItem
             // 
             сотрудникиToolStripMenuItem.Name = "сотрудникиToolStripMenuItem";
-            сотрудникиToolStripMenuItem.Size = new Size(224, 26);
+            сотрудникиToolStripMenuItem.Size = new Size(174, 26);
             сотрудникиToolStripMenuItem.Text = "Сотрудники";
             сотрудникиToolStripMenuItem.Click += сотрудникиToolStripMenuItem_Click;
             // 
             // заказToolStripMenuItem
             // 
             заказToolStripMenuItem.Name = "заказToolStripMenuItem";
-            заказToolStripMenuItem.Size = new Size(224, 26);
+            заказToolStripMenuItem.Size = new Size(174, 26);
             заказToolStripMenuItem.Text = "Заказ";
             заказToolStripMenuItem.Click += заказToolStripMenuItem_Click;
+            // 
+            // проверкаБДToolStripMenuItem
+            // 
+            проверкаБДToolStripMenuItem.Name = "проверкаБДToolStripMenuItem";
+            проверкаБДToolStripMenuItem.Size = new Size(115, 24);
+            проверкаБДToolStripMenuItem.Text = "Проверка БД";
+            проверкаБДToolStripMenuItem.Click += проверкаБДToolStripMenuItem_Click;
             // 
             // DodoMainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1254, 617);
             Controls.Add(menuStrip1);
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
@@ -88,5 +96,6 @@
         private ToolStripMenuItem справочникToolStripMenuItem;
         private ToolStripMenuItem сотрудникиToolStripMenuItem;
         private ToolStripMenuItem заказToolStripMenuItem;
+        private ToolStripMenuItem проверкаБДToolStripMenuItem;
     }
 }
