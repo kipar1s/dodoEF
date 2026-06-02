@@ -18,6 +18,7 @@ namespace dodoEF.MyEF.Entities
         public DbSet<OderTovar> OrderTovars => Set<OderTovar>();
         public DbSet<TovarIngr> TovarIngrs => Set<TovarIngr>();
         public DbSet<PersonalEvelobilitile> PersonalEvelobilitile => Set<PersonalEvelobilitile>();
+        public DbSet<User> Users => Set<User>();
 
 
         //Автомотичсекое создание БД если она отсутствует
@@ -25,7 +26,13 @@ namespace dodoEF.MyEF.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseJet(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source =D:\susu\modEF\dodoEF\dodoDb2.accdb ");
+            // Получаем путь к директории, где находится исполняемый файл
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            // Поднимаемся на 3 уровня вверх (из bin/Debug/net8.0-windows в корень проекта)
+            string projectRoot = Path.Combine(baseDirectory, "..", "..", "..");
+            string dbPath = Path.GetFullPath(Path.Combine(projectRoot, "dodoDb2.accdb"));
+            
+            optionsBuilder.UseJet($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={dbPath}");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

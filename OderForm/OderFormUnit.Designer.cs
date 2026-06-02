@@ -54,19 +54,14 @@
             calloryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             tovarBindingSource = new BindingSource(components);
             cB_Status = new ComboBox();
-            groupBox2 = new GroupBox();
-            dataGridView2 = new DataGridView();
-            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            statusPLDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            sposobPLDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             plategBindingSource = new BindingSource(components);
+            listViewPlateg = new ListView();
+            Sposob_OP = new ColumnHeader();
+            Status_oder = new ColumnHeader();
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).BeginInit();
-            groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plategBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -83,7 +78,7 @@
             // 
             btn_cancel.DialogResult = DialogResult.Cancel;
             btn_cancel.Font = new Font("Segoe UI", 20F);
-            btn_cancel.Location = new Point(833, 185);
+            btn_cancel.Location = new Point(811, 220);
             btn_cancel.Name = "btn_cancel";
             btn_cancel.Size = new Size(169, 98);
             btn_cancel.TabIndex = 27;
@@ -94,7 +89,7 @@
             // 
             btn_OK.DialogResult = DialogResult.OK;
             btn_OK.Font = new Font("Segoe UI", 20F);
-            btn_OK.Location = new Point(619, 185);
+            btn_OK.Location = new Point(602, 220);
             btn_OK.Name = "btn_OK";
             btn_OK.Size = new Size(153, 98);
             btn_OK.TabIndex = 26;
@@ -288,71 +283,40 @@
             cB_Status.TabIndex = 30;
             cB_Status.ValueMember = "Status";
             // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(dataGridView2);
-            groupBox2.Location = new Point(533, 32);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(559, 83);
-            groupBox2.TabIndex = 34;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Оплата заказа";
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.AutoGenerateColumns = false;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, statusPLDataGridViewTextBoxColumn, sposobPLDataGridViewTextBoxColumn, dataGridViewTextBoxColumn1 });
-            dataGridView2.DataSource = plategBindingSource;
-            dataGridView2.Dock = DockStyle.Fill;
-            dataGridView2.Location = new Point(3, 23);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(553, 57);
-            dataGridView2.TabIndex = 0;
-            // 
-            // idDataGridViewTextBoxColumn1
-            // 
-            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            idDataGridViewTextBoxColumn1.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            idDataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // statusPLDataGridViewTextBoxColumn
-            // 
-            statusPLDataGridViewTextBoxColumn.DataPropertyName = "Status_PL";
-            statusPLDataGridViewTextBoxColumn.HeaderText = "Status_PL";
-            statusPLDataGridViewTextBoxColumn.MinimumWidth = 6;
-            statusPLDataGridViewTextBoxColumn.Name = "statusPLDataGridViewTextBoxColumn";
-            statusPLDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // sposobPLDataGridViewTextBoxColumn
-            // 
-            sposobPLDataGridViewTextBoxColumn.DataPropertyName = "Sposob_PL";
-            sposobPLDataGridViewTextBoxColumn.HeaderText = "Sposob_PL";
-            sposobPLDataGridViewTextBoxColumn.MinimumWidth = 6;
-            sposobPLDataGridViewTextBoxColumn.Name = "sposobPLDataGridViewTextBoxColumn";
-            sposobPLDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.DataPropertyName = "Oder";
-            dataGridViewTextBoxColumn1.HeaderText = "Oder";
-            dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.Width = 125;
-            // 
             // plategBindingSource
             // 
             plategBindingSource.DataSource = typeof(MyEF.Entities.Plateg);
+            // 
+            // listViewPlateg
+            // 
+            listViewPlateg.CheckBoxes = true;
+            listViewPlateg.Columns.AddRange(new ColumnHeader[] { Sposob_OP, Status_oder });
+            listViewPlateg.FullRowSelect = true;
+            listViewPlateg.Location = new Point(522, 57);
+            listViewPlateg.MultiSelect = false;
+            listViewPlateg.Name = "listViewPlateg";
+            listViewPlateg.Size = new Size(556, 157);
+            listViewPlateg.TabIndex = 35;
+            listViewPlateg.UseCompatibleStateImageBehavior = false;
+            listViewPlateg.UseWaitCursor = true;
+            listViewPlateg.View = View.Details;
+            // 
+            // Sposob_OP
+            // 
+            Sposob_OP.Text = "Выберите способ оплаты";
+            Sposob_OP.Width = 270;
+            // 
+            // Status_oder
+            // 
+            Status_oder.Text = "Выбери Статус";
+            Status_oder.Width = 270;
             // 
             // OderFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1090, 593);
-            Controls.Add(groupBox2);
+            Controls.Add(listViewPlateg);
             Controls.Add(groupBox1);
             Controls.Add(textBox6);
             Controls.Add(label4);
@@ -377,8 +341,6 @@
             groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).EndInit();
-            groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ((System.ComponentModel.ISupportInitialize)plategBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -405,8 +367,6 @@
         private DataGridView dataGridView1;
         private BindingSource tovarBindingSource;
         private ComboBox cB_Status;
-        private GroupBox groupBox2;
-        private DataGridView dataGridView2;
         private BindingSource plategBindingSource;
         private DataGridViewTextBoxColumn oderDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn oderidDataGridViewTextBoxColumn;
@@ -415,9 +375,8 @@
         private DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn catiforiTDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn calloryDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn statusPLDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn sposobPLDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private ListView listViewPlateg;
+        private ColumnHeader Sposob_OP;
+        private ColumnHeader Status_oder;
     }
 }
