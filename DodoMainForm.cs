@@ -1,15 +1,80 @@
+using dodoEF.ClientForm;
+using dodoEF.EnumForm;
 using dodoEF.MyEF.Entities;
 using dodoEF.OderForm;
 using dodoEF.PersonalForm;
+using dodoEF.TovarForm;
 namespace dodoEF
 {
     public partial class DodoMainForm : Form
     {
         dodoEF.MyEF.Entities.ApplicationDbContext db;
-        public DodoMainForm()
+        private User currentUser;
+
+        public DodoMainForm(User user)
         {
             InitializeComponent();
             db = new dodoEF.MyEF.Entities.ApplicationDbContext();
+            currentUser = user;
+            
+            // Отображаем информацию о текущем пользователе
+            this.Text = $"Додо Пицца - {currentUser.FullName} ({currentUser.Role})";
+            
+            // Убеждаемся что меню видимо
+            menuStrip1.Visible = true;
+            
+            // Настраиваем интерфейс в зависимости от прав пользователя после загрузки формы
+            this.Load += DodoMainForm_Load;
+        }
+
+        private void DodoMainForm_Load(object? sender, EventArgs e)
+        {
+            ConfigureAccessRights();
+            
+            // Принудительно показываем оба меню для отладки
+            справочникToolStripMenuItem.Visible = true;
+            перечисленияToolStripMenuItem.Visible = true;
+            
+            // Отладочная информация
+            var permissions = AccessControl.GetPermissions(currentUser.Role);
+            string permissionsList = string.Join(", ", permissions);
+            
+            MessageBox.Show($"Роль из БД: '{currentUser.Role}'\nКоличество прав: {permissions.Count}\n\nСправочник Visible: {справочникToolStripMenuItem.Visible}\nПеречисления Visible: {перечисленияToolStripMenuItem.Visible}\n\nСотрудники: {сотрудникиToolStripMenuItem.Visible}\nЗаказ: {заказToolStripMenuItem.Visible}\nКлиент: {клиентToolStripMenuItem.Visible}\nТовар: {товарToolStripMenuItem.Visible}", "Отладка меню");
+        }
+
+        private void ConfigureAccessRights()
+        {
+            // Получаем права доступа для текущей роли
+            var permissions = AccessControl.GetPermissions(currentUser.Role);
+
+            // Настраиваем видимость пунктов меню
+            сотрудникиToolStripMenuItem.Visible = permissions.Contains("PersonalListForm");
+            заказToolStripMenuItem.Visible = permissions.Contains("OderListForm");
+            клиентToolStripMenuItem.Visible = permissions.Contains("ClientListForm");
+            товарToolStripMenuItem.Visible = permissions.Contains("TovarListForm");
+            
+            категорииToolStripMenuItem.Visible = permissions.Contains("CategoriEnumForm");
+            оцениваемостьToolStripMenuItem.Visible = permissions.Contains("EvelobEnumForm");
+            ингридиентыToolStripMenuItem.Visible = permissions.Contains("IngrEnumForm");
+            платежToolStripMenuItem.Visible = permissions.Contains("PlategEnumForm");
+
+            // ВСЕГДА показываем родительские меню, если есть хотя бы один видимый подпункт
+            bool hasVisibleSpravo = сотрудникиToolStripMenuItem.Visible || 
+                                     заказToolStripMenuItem.Visible || 
+                                     клиентToolStripMenuItem.Visible || 
+                                     товарToolStripMenuItem.Visible;
+                                     
+            bool hasVisiblePerech = категорииToolStripMenuItem.Visible || 
+                                     оцениваемостьToolStripMenuItem.Visible || 
+                                     ингридиентыToolStripMenuItem.Visible || 
+                                     платежToolStripMenuItem.Visible;
+
+            справочникToolStripMenuItem.Visible = hasVisibleSpravo;
+            перечисленияToolStripMenuItem.Visible = hasVisiblePerech;
+            
+            // Принудительно обновляем меню
+            menuStrip1.Refresh();
+            this.Refresh();
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)
@@ -19,16 +84,30 @@ namespace dodoEF
 
         private void сотрудникиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PersonalListForm personal_list_form = new PersonalListForm();
-            personal_list_form.MdiParent = this;
-            personal_list_form.Show();
+            if (AccessControl.HasAccess(currentUser.Role, "PersonalListForm"))
+            {
+                PersonalListForm personal_list_form = new PersonalListForm();
+                personal_list_form.MdiParent = this;
+                personal_list_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void заказToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OderListForm oder_list_form = new OderListForm();
-            oder_list_form.MdiParent = this;
-            oder_list_form.Show();
+            if (AccessControl.HasAccess(currentUser.Role, "OderListForm"))
+            {
+                OderListForm oder_list_form = new OderListForm();
+                oder_list_form.MdiParent = this;
+                oder_list_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void проверкаБДToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,6 +298,89 @@ namespace dodoEF
             db.SaveChanges();
         }
 
+        private void клиентToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "ClientListForm"))
+            {
+                ClientListForm client_list_form = new ClientListForm();
+                client_list_form.MdiParent = this;
+                client_list_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void категорииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "CategoriEnumForm"))
+            {
+                CategoriEnumForm categori_list_form = new CategoriEnumForm();
+                categori_list_form.MdiParent = this;
+                categori_list_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void оцениваемостьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "EvelobEnumForm"))
+            {
+                EvelobEnumForm evelob_enum_form = new EvelobEnumForm();
+                evelob_enum_form.MdiParent = this;
+                evelob_enum_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ингридиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "IngrEnumForm"))
+            {
+                IngrEnumForm ingr_enum_form = new IngrEnumForm();
+                ingr_enum_form.MdiParent = this;
+                ingr_enum_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void платежToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "PlategEnumForm"))
+            {
+                PlategEnumForm plateg_enum_form = new PlategEnumForm();
+                plateg_enum_form.MdiParent = this;
+                plateg_enum_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void товарToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "TovarListForm"))
+            {
+                TovarListForm tovar_list_form = new TovarListForm();
+                tovar_list_form.MdiParent = this;
+                tovar_list_form.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 
 }

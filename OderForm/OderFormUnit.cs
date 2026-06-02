@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using dodoEF.MyEF.Entities;
 using Microsoft.EntityFrameworkCore;
-using dodoEF.MyEF.Entities;
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Windows.Forms;
 
 namespace dodoEF.OderForm
 {
@@ -10,7 +11,8 @@ namespace dodoEF.OderForm
     {
         private bool is_edit = false;
         private ApplicationDbContext db;
-        private Oder item;
+        private Oder item; 
+        private Plateg selectedPlateg;  // будет хранить выбранный платёж
         private int item_id = -1;
 
         // BindingSource для товаров заказа
@@ -178,5 +180,7 @@ namespace dodoEF.OderForm
                 MessageBox.Show("Ошибка сохранения: " + ex.Message);
             }
         }
+
+       
     }
 }
