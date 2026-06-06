@@ -33,19 +33,21 @@
             сотрудникиToolStripMenuItem = new ToolStripMenuItem();
             заказToolStripMenuItem = new ToolStripMenuItem();
             клиентToolStripMenuItem = new ToolStripMenuItem();
-            товарToolStripMenuItem = new ToolStripMenuItem();
             перечисленияToolStripMenuItem = new ToolStripMenuItem();
             категорииToolStripMenuItem = new ToolStripMenuItem();
             оцениваемостьToolStripMenuItem = new ToolStripMenuItem();
             ингридиентыToolStripMenuItem = new ToolStripMenuItem();
             платежToolStripMenuItem = new ToolStripMenuItem();
+            проверкаБДToolStripMenuItem = new ToolStripMenuItem();
+            товарToolStripMenuItem = new ToolStripMenuItem();
+            курьерыToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { справочникToolStripMenuItem, перечисленияToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { справочникToolStripMenuItem, перечисленияToolStripMenuItem, проверкаБДToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1254, 28);
@@ -54,7 +56,7 @@
             // 
             // справочникToolStripMenuItem
             // 
-            справочникToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сотрудникиToolStripMenuItem, заказToolStripMenuItem, клиентToolStripMenuItem, товарToolStripMenuItem });
+            справочникToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { сотрудникиToolStripMenuItem, заказToolStripMenuItem, курьерыToolStripMenuItem, клиентToolStripMenuItem, товарToolStripMenuItem });
             справочникToolStripMenuItem.Name = "справочникToolStripMenuItem";
             справочникToolStripMenuItem.Size = new Size(108, 24);
             справочникToolStripMenuItem.Text = "Справочник";
@@ -115,12 +117,26 @@
             платежToolStripMenuItem.Text = "Платеж";
             платежToolStripMenuItem.Click += платежToolStripMenuItem_Click;
             // 
+            // проверкаБДToolStripMenuItem
+            // 
+            проверкаБДToolStripMenuItem.Name = "проверкаБДToolStripMenuItem";
+            проверкаБДToolStripMenuItem.Size = new Size(115, 24);
+            проверкаБДToolStripMenuItem.Text = "Проверка БД";
+            проверкаБДToolStripMenuItem.Click += проверкаБДToolStripMenuItem_Click_1;
+            // 
             // товарToolStripMenuItem
             // 
             товарToolStripMenuItem.Name = "товарToolStripMenuItem";
             товарToolStripMenuItem.Size = new Size(224, 26);
             товарToolStripMenuItem.Text = "Товар";
             товарToolStripMenuItem.Click += товарToolStripMenuItem_Click;
+            // 
+            // курьерыToolStripMenuItem
+            // 
+            курьерыToolStripMenuItem.Name = "курьерыToolStripMenuItem";
+            курьерыToolStripMenuItem.Size = new Size(224, 26);
+            курьерыToolStripMenuItem.Text = "Курьеры";
+            курьерыToolStripMenuItem.Click += курьерыToolStripMenuItem_Click;
             // 
             // DodoMainForm
             // 
@@ -145,11 +161,13 @@
         private ToolStripMenuItem сотрудникиToolStripMenuItem;
         private ToolStripMenuItem заказToolStripMenuItem;
         private ToolStripMenuItem клиентToolStripMenuItem;
-        private ToolStripMenuItem товарToolStripMenuItem;
         private ToolStripMenuItem перечисленияToolStripMenuItem;
         private ToolStripMenuItem категорииToolStripMenuItem;
         private ToolStripMenuItem оцениваемостьToolStripMenuItem;
         private ToolStripMenuItem ингридиентыToolStripMenuItem;
         private ToolStripMenuItem платежToolStripMenuItem;
+        private ToolStripMenuItem проверкаБДToolStripMenuItem;
+        private ToolStripMenuItem курьерыToolStripMenuItem;
+        private ToolStripMenuItem товарToolStripMenuItem;
     }
 }

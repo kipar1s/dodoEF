@@ -24,7 +24,9 @@ namespace dodoEF.PersonalForm
 
         public void RefreshPersonalGrid()
         {
-            personals = db.DbPersonal.Include(u => u.categori).ToList();
+            personals = db.DbPersonal
+                .Include(u => u.categori)
+                .ToList();
             this.personalBindingSource.DataSource = personals;
 
         }

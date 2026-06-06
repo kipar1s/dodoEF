@@ -22,7 +22,7 @@ namespace dodoEF.MyEF.Entities
         public Plateg plategs { get; set; }
 
         // Внешний ключ к сотруднику
-        public int personalId { get; set; }
+        public int? personalId { get; set; } = 0;
         public Personal personal { get; set; }
 
         // Связь многие-ко-многим с товарами через промежуточную таблицу OrderTovar

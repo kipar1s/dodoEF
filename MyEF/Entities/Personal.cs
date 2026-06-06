@@ -12,12 +12,14 @@ namespace dodoEF.MyEF.Entities
         public int Stage {  get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public int categoriId { get; set; }
+        public int categoriId { get; set; }        
         public Categori categori { get; set; }
         public List<Oder> oders { get; set; } = new ();
 
         // Связь многие-ко-многим с уровнями квалификации (если требуется)
         public List<PersonalEvelobilitile> PersonalEvelobilitiles { get; set; } = new();
+        public int Num_VY { get; set; }
+        public int Num_Car { get; set; }
 
     }
 }

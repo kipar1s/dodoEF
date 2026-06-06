@@ -18,7 +18,8 @@ namespace dodoEF
                     "CategoriEnumForm",
                     "EvelobEnumForm",
                     "IngrEnumForm",
-                    "PlategEnumForm"
+                    "PlategEnumForm",
+                    "CurierListForm"
                 }
             },
             {
@@ -30,7 +31,8 @@ namespace dodoEF
                     "TovarListForm",
                     "EvelobEnumForm",
                     "IngrEnumForm",
-                    "PlategEnumForm"
+                    "PlategEnumForm",
+                    "CurierListForm"
                 }
             },
             {
@@ -42,7 +44,8 @@ namespace dodoEF
                     "TovarListForm",
                     "EvelobEnumForm",
                     "IngrEnumForm",
-                    "PlategEnumForm"
+                    "PlategEnumForm",
+                    "CurierListForm"
                 }
             },
             {
@@ -52,7 +55,8 @@ namespace dodoEF
                     "ClientListForm",
                     "TovarListForm",
                     "IngrEnumForm",
-                    "PlategEnumForm"
+                    "PlategEnumForm",
+                    "CurierListForm"
                 }
             },
             {
@@ -68,7 +72,8 @@ namespace dodoEF
                 {
                     "OderListForm",
                     "ClientListForm",
-                    "PlategEnumForm"
+                    "PlategEnumForm",
+                    "CurierListForm"
                 }
             },
             {

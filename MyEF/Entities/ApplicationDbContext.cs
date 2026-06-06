@@ -15,10 +15,11 @@ namespace dodoEF.MyEF.Entities
         public DbSet<Tovar> Tovar => Set<Tovar>();
         public DbSet<Plateg> Plateg => Set<Plateg>();
         public DbSet<Evelobilitile> Evelobilitile => Set<Evelobilitile>();
-        public DbSet<OderTovar> OrderTovars => Set<OderTovar>();
+        public DbSet<OderTovar> OderTovars => Set<OderTovar>();
         public DbSet<TovarIngr> TovarIngrs => Set<TovarIngr>();
         public DbSet<PersonalEvelobilitile> PersonalEvelobilitile => Set<PersonalEvelobilitile>();
         public DbSet<User> Users => Set<User>();
+        //public DbSet<Curier> Curiers => Set <Curier> ();
 
 
         //Автомотичсекое создание БД если она отсутствует
@@ -36,6 +37,9 @@ namespace dodoEF.MyEF.Entities
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // TPH: Personal, Curier и Evelobilitile в одной таблице
+            
+
             // Составные первичные ключи для промежуточных таблиц
             modelBuilder.Entity<OderTovar>()
                 .HasKey(ot => new { ot.OderId, ot.TovarId });
@@ -58,6 +62,10 @@ namespace dodoEF.MyEF.Entities
                 .HasIndex(o => o.plategid)
                 .IsUnique();
 
+            modelBuilder.Entity<Plateg>()
+                .HasOne(p => p.Oder)
+                .WithOne(o => o.plategs)
+                .OnDelete(DeleteBehavior.Cascade);
             // Остальные связи настраиваются автоматически по соглашениям,
             // но для ясности можно прописать:
             modelBuilder.Entity<Oder>()

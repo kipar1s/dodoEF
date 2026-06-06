@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Numerics;
 using System.Windows.Forms;
 
 namespace dodoEF.OderForm
@@ -11,37 +10,52 @@ namespace dodoEF.OderForm
     {
         private bool is_edit = false;
         private ApplicationDbContext db;
-        private Oder item; 
-        private Plateg selectedPlateg;  // будет хранить выбранный платёж
+        private Oder item;
         private int item_id = -1;
+        
 
-        // BindingSource для товаров заказа
-        private BindingSource orderTovarBindingSource = new BindingSource();
+        private readonly string[] sposoby = { "Наличные", "Картой", "Онлайн", "Сертификат" };
+        private readonly string[] statusy = { "Оплачено", "Отменено", "В процессе" };
 
         public OderFormUnit()
         {
             InitializeComponent();
             db = new ApplicationDbContext();
-
-            // Привязка комбобокса статуса – теперь без BindingSource, будем управлять вручную
-            // Удаляем старую привязку, если она была добавлена в дизайнере или ранее
             cB_Status.DataBindings.Clear();
+            SetupListViews();
+        }
 
-            // Навигатор для товаров (опционально)
-            BindingNavigator navigator = new BindingNavigator(true);
-            navigator.BindingSource = orderTovarBindingSource;
-            this.groupBox1.Controls.Add(navigator);
+        // ===== НАСТРОЙКА ListView с CheckBoxes =====
+        private void SetupListViews()
+        {
+            // Способы оплаты
+            listViewSposob.View = View.Details;
+            listViewSposob.CheckBoxes = true;
+            listViewSposob.Columns.Add("Способ оплаты", 150);
+            listViewSposob.FullRowSelect = true;
+            listViewSposob.MultiSelect = false;
+
+            foreach (var s in sposoby)
+                listViewSposob.Items.Add(new ListViewItem(s));
+
+            // Статусы
+            listViewStatus.View = View.Details;
+            listViewStatus.CheckBoxes = true;
+            listViewStatus.Columns.Add("Статус платежа", 150);
+            listViewStatus.FullRowSelect = true;
+            listViewStatus.MultiSelect = false;
+
+            foreach (var s in statusy)
+                listViewStatus.Items.Add(new ListViewItem(s));
         }
 
         public void EditItem(int item_id)
         {
             is_edit = true;
             this.item_id = item_id;
-            // Загружаем заказ вместе с клиентом, платежом, а также связями OrderTovar и самими товарами
             this.item = db.Oder
                 .Include(o => o.client)
                 .Include(o => o.plategs)
-                .Include(o => o.personal)
                 .Include(o => o.OderTovars)
                     .ThenInclude(ot => ot.Tovar)
                 .FirstOrDefault(o => o.Id == item_id);
@@ -49,35 +63,35 @@ namespace dodoEF.OderForm
 
         private void OderFormUnit_Load(object sender, EventArgs e)
         {
-            // Заполняем комбобокс статусов
             var statuses = new List<string> { "Доставлено", "Отменен" };
             cB_Status.DataSource = statuses;
 
             if (is_edit && item != null)
             {
-                // Режим редактирования существующего заказа
+                // Режим редактирования
                 cB_Status.SelectedItem = item.Status;
 
-                // Заполняем поля данными клиента
                 if (item.client != null)
                 {
-                    textBox1.Text = item.client.Id.ToString();          // Id клиента
-                    textBox2.Text = item.client.FullName;          // Ник клиента
-                    textBox3.Text = item.client.Telefon.ToString(); // Телефон
-                    textBox6.Text = item.client.Adress_C;          // Адрес клиента
+                    textBox1.Text = item.client.Id.ToString();
+                    textBox2.Text = item.client.FullName;
+                    textBox3.Text = item.client.Telefon.ToString();
+                    textBox6.Text = item.client.Adress_C;
                 }
-                // Дата заказа
                 textBox4.Text = item.date.ToShortDateString();
 
-                // Привязываем товары
-                orderTovarBindingSource.DataSource = item.OderTovars;
-                dataGridView1.DataSource = orderTovarBindingSource;
-                ConfigureTovarGrid();
+                // Устанавливаем галочки по данным из БД
+                SetCheckBox(listViewSposob, item.plategs?.Sposob_PL ?? "Наличные");
+                SetCheckBox(listViewStatus, item.plategs?.Status_PL ?? "В процессе");
+
+                // Загружаем оба грида товаров
+                LoadOrderTovars();
+                LoadAllTovars();
             }
             else
             {
-                // Режим создания нового заказа
-                cB_Status.SelectedIndex = 0; // значение по умолчанию
+                // Режим создания
+                cB_Status.SelectedIndex = 0;
 
                 OderSelectionDialog dialog = new OderSelectionDialog();
                 if (dialog.ShowDialog() != DialogResult.OK)
@@ -97,50 +111,270 @@ namespace dodoEF.OderForm
                     OderTovars = new List<OderTovar>()
                 };
 
-                // Заполняем текстовые поля из выбранного клиента
-                textBox1.Text = item.client.Id.ToString();          // Id клиента
-                textBox2.Text = item.client.FullName;          // Ник клиента
-                textBox3.Text = item.client.Telefon.ToString(); // Телефон
-                textBox6.Text = item.client.Adress_C;          // Адрес клиента
-                // Устанавливаем текущую дату
+                textBox1.Text = item.client.Id.ToString();
+                textBox2.Text = item.client.FullName;
+                textBox3.Text = item.client.Telefon.ToString();
+                textBox5.Text = item.Summa.ToString();
+                textBox6.Text = item.client.Adress_C;
                 textBox4.Text = DateTime.Now.ToShortDateString();
 
+                // По умолчанию: Наличные + В процессе
+                SetCheckBox(listViewSposob, "Наличные");
+                SetCheckBox(listViewStatus, "В процессе");
+
                 cB_Status.SelectedItem = item.Status;
-                orderTovarBindingSource.DataSource = item.OderTovars;
-                dataGridView1.DataSource = orderTovarBindingSource;
-                ConfigureTovarGrid();
+                LoadOrderTovars();
+                LoadAllTovars();
             }
         }
 
-        // Настраиваем отображение колонок DataGridView для OrderTovar
-        private void ConfigureTovarGrid()
+        // ===== ГРИД 1: Товары в заказе =====
+        private void LoadOrderTovars()
         {
-            if (dataGridView1.Columns.Count == 0)
+            // Создаём список для отображения с данными товара
+            var displayList = item.OderTovars.Select(ot => new
             {
-                DataGridViewTextBoxColumn tovarNameCol = new DataGridViewTextBoxColumn
+                TovarName = ot.Tovar?.FullName ?? "Товар #" + ot.TovarId,
+                Quantity = ot.Quantity,
+                Price = ot.Tovar?.Price ?? 0,
+                Summa = (ot.Tovar?.Price ?? 0) * ot.Quantity
+            }).ToList();
+
+            tovarBindingSource.DataSource = displayList;
+            dataGridViewTovat.DataSource = tovarBindingSource;
+            ConfigureOrderTovarGrid();
+        }
+        private void LoadAllTovars()
+        {
+            var allTovars = db.Tovar.AsNoTracking().ToList();
+            tovarBindingSource1.DataSource = allTovars;
+            dataGridViewAllTovars.DataSource = tovarBindingSource1;
+            ConfigureAllTovarsGrid();
+        }
+        // ===== НАСТРОЙКА ГРИДА: Товары в заказе =====
+        private void ConfigureOrderTovarGrid()
+        {
+            if (dataGridViewTovat.Columns.Count == 0)
+            {
+                dataGridViewTovat.AutoGenerateColumns = false;
+                dataGridViewTovat.Columns.Clear();
+
+                dataGridViewTovat.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "TovarName",
                     HeaderText = "Товар",
-                    DataPropertyName = "Tovar.FullName",
-                    ReadOnly = true
-                };
-                DataGridViewTextBoxColumn quantityCol = new DataGridViewTextBoxColumn
+                    DataPropertyName = "TovarName",
+                    ReadOnly = true,
+                    Width = 200
+                });
+
+                dataGridViewTovat.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Quantity",
-                    HeaderText = "Количество",
-                    DataPropertyName = "Quantity"
-                };
-                dataGridView1.Columns.Add(tovarNameCol);
-                dataGridView1.Columns.Add(quantityCol);
+                    HeaderText = "Кол-во",
+                    DataPropertyName = "Quantity",
+                    Width = 80
+                });
+
+                dataGridViewTovat.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Price",
+                    HeaderText = "Цена",
+                    DataPropertyName = "Price",
+                    ReadOnly = true,
+                    Width = 80
+                });
+
+                dataGridViewTovat.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Summa",
+                    HeaderText = "Сумма",
+                    DataPropertyName = "Summa",
+                    ReadOnly = true,
+                    Width = 80
+                });
             }
         }
 
+        // ===== НАСТРОЙКА ГРИДА: Все товары =====
+        private void ConfigureAllTovarsGrid()
+        {
+            if (dataGridViewAllTovars.Columns.Count == 0)
+            {
+                dataGridViewAllTovars.AutoGenerateColumns = false;
+                dataGridViewAllTovars.Columns.Clear();
+
+                dataGridViewTovat.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "TovarId",
+                    DataPropertyName = "TovarId",
+                    Visible = false
+                });
+
+                dataGridViewAllTovars.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Id",
+                    HeaderText = "ID",
+                    DataPropertyName = "Id",
+                    ReadOnly = true,
+                    Width = 50
+                });
+
+                dataGridViewAllTovars.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "FullName",
+                    HeaderText = "Название",
+                    DataPropertyName = "FullName",
+                    ReadOnly = true,
+                    Width = 200
+                });
+
+                dataGridViewAllTovars.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Price",
+                    HeaderText = "Цена",
+                    DataPropertyName = "Price",
+                    ReadOnly = true,
+                    Width = 80
+                });
+
+                dataGridViewAllTovars.Columns.Add(new DataGridViewTextBoxColumn
+                {
+                    Name = "Catifori_T",
+                    HeaderText = "Категория",
+                    DataPropertyName = "Catifori_T",
+                    ReadOnly = true,
+                    Width = 100
+                });
+            }
+        }
+
+        // ===== КНОПКА: ДОБАВИТЬ ТОВАР В ЗАКАЗ =====
+        private void btnAddTovar_Click(object sender, EventArgs e)
+        {
+            // Останавливаем обработку, если что-то пойдёт не так
+            try
+            {
+                if (dataGridViewAllTovars.CurrentRow == null)
+                {
+                    MessageBox.Show("Выберите товар!");
+                    return;
+                }
+
+                int tovarId = Convert.ToInt32(dataGridViewAllTovars.CurrentRow.Cells[0].Value);
+
+                // Проверяем, есть ли уже этот товар в заказе
+                var existing = item.OderTovars.FirstOrDefault(ot => ot.TovarId == tovarId);
+                if (existing != null)
+                {
+                    existing.Quantity++;
+                }
+                else
+                {
+                    // Загружаем товар из БД
+                    var tovar = db.Tovar.AsNoTracking().FirstOrDefault(t => t.Id == tovarId);
+                    if (tovar == null)
+                    {
+                        MessageBox.Show("Товар не найден в базе!");
+                        return;
+                    }
+
+                    // Создаём OderTovar
+                    var newOderTovar = new OderTovar
+                    {
+                        OderId = item.Id,
+                        TovarId = tovarId,
+                        Tovar = tovar,
+                        Quantity = 1
+                    };
+
+                    item.OderTovars.Add(newOderTovar);
+                }
+
+                // Обновляем отображение
+                RefreshOrderTovarsGrid();
+                RecalculateSumma();
+                textBox5.Text = item.Summa.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при добавлении: " + ex.Message);
+            }
+        }
+
+        // ===== ОБНОВЛЕНИЕ ГРИДА товаров заказа =====
+        private void RefreshOrderTovarsGrid()
+        {
+            // В RefreshOrderTovarsGrid добавь скрытую колонку
+            var displayList = item.OderTovars.Select(ot => new
+            {
+                TovarId = ot.TovarId,  // скрытая колонка
+                TovarName = ot.Tovar?.FullName ?? "Товар #" + ot.TovarId,
+                Quantity = ot.Quantity,
+                Price = ot.Tovar?.Price ?? 0,
+                Summa = (ot.Tovar?.Price ?? 0) * ot.Quantity
+            }).ToList();
+
+            dataGridViewTovat.DataSource = null;  // сбрасываем для обновления
+            dataGridViewTovat.DataSource = displayList;
+
+            // Настройка колонок если нужно
+            if (dataGridViewTovat.Columns.Count == 0)
+            {
+                dataGridViewTovat.AutoGenerateColumns = true;
+            }
+        }
+
+        // ===== ПЕРЕСЧЁТ СУММЫ =====
+        private void RecalculateSumma()
+        {
+            item.Summa = item.OderTovars.Sum(ot => (ot.Tovar?.Price ?? 0) * ot.Quantity);
+        }
+
+
+        // ===== КНОПКА: УДАЛИТЬ ТОВАР ИЗ ЗАКАЗА =====
+        private void btnRemoveTovar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTovat.CurrentRow == null) return;
+
+            int tovarId = Convert.ToInt32(dataGridViewTovat.CurrentRow.Cells["TovarId"].Value);
+
+            var oderTovar = item.OderTovars.FirstOrDefault(ot => ot.TovarId == tovarId);
+            if (oderTovar != null)
+            {
+                item.OderTovars.Remove(oderTovar);
+                RefreshOrderTovarsGrid();
+                RecalculateSumma();
+            }
+        }
+
+
+        // ===== УСТАНОВИТЬ ГАЛОЧКУ по тексту =====
+        private void SetCheckBox(ListView lv, string text)
+        {
+            foreach (ListViewItem li in lv.Items)
+            {
+                li.Checked = (li.Text == text);
+            }
+        }
+
+        // ===== ЧТЕНИЕ ВЫБРАННОГО =====
+        private string GetCheckedText(ListView lv)
+        {
+            foreach (ListViewItem li in lv.Items)
+            {
+                if (li.Checked)
+                    return li.Text;
+            }
+            return lv.Items[0].Text; // первый по умолчанию
+        }
+
+
+
         private void btn_OK_Click(object sender, EventArgs e)
         {
-            // Завершаем редактирование привязки товаров
-            orderTovarBindingSource.EndEdit();
+            tovarBindingSource.EndEdit();
 
-            // Обновляем статус из комбобокса
             if (cB_Status.SelectedItem != null)
                 item.Status = cB_Status.SelectedItem.ToString();
 
@@ -150,37 +384,70 @@ namespace dodoEF.OderForm
                 return;
             }
 
-            // Обновляем клиента из текстовых полей (если пользователь их менял)
+            // Клиент
             if (item.client != null)
             {
-                item.client.FullName = textBox1.Text;
-                if (int.TryParse(textBox2.Text, out int telefon))
+                item.client.FullName = textBox2.Text;
+                if (int.TryParse(textBox3.Text, out int telefon))
                     item.client.Telefon = telefon;
                 item.client.Adress_C = textBox6.Text;
             }
 
-            // Обновляем дату заказа, если пользователь её изменил
+            // Дата
             if (DateTime.TryParse(textBox4.Text, out DateTime newDate))
                 item.date = newDate;
 
-            // Сохраняем заказ
-            if (!is_edit)
-                db.Oder.Add(item);
-            else
-                db.Oder.Update(item);
+            // ===== ПЛАТЁЖ =====
+            string sposob = GetCheckedText(listViewSposob);
+            string statusPl = GetCheckedText(listViewStatus);
 
+            if (item.plategs == null)
+            {
+                item.plategs = new Plateg
+                {
+                    Sposob_PL = sposob,
+                    Status_PL = statusPl
+                };
+            }
+            else
+            {
+                item.plategs.Sposob_PL = sposob;
+                item.plategs.Status_PL = statusPl;
+            }
+
+            // ===== СОХРАНЕНИЕ =====
             try
             {
-                db.SaveChanges();
+                if (!is_edit)
+                {
+                    // 1. Сохраняем платёж, получаем Id
+                    if (item.plategs.Id == 0)
+                    {
+                        db.Plateg.Add(item.plategs);
+                        db.SaveChanges();
+                    }
+
+                    // 2. Устанавливаем FK в заказе
+                    item.plategid = item.plategs.Id;
+
+                    // 3. Сохраняем заказ (вместе с товарами)
+                    db.Oder.Add(item);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.Oder.Update(item);
+                    db.SaveChanges();
+                }
+
                 DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка сохранения: " + ex.Message);
+                MessageBox.Show("Ошибка сохранения: " + ex.Message + "\n\n" +
+                    ex.InnerException?.Message);
             }
         }
-
-       
     }
 }

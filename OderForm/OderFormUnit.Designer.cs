@@ -46,23 +46,27 @@
             textBox6 = new TextBox();
             label4 = new Label();
             groupBox1 = new GroupBox();
-            dataGridView1 = new DataGridView();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            fullNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            priceDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            catiforiTDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            calloryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dataGridViewTovat = new DataGridView();
             tovarBindingSource = new BindingSource(components);
             cB_Status = new ComboBox();
             plategBindingSource = new BindingSource(components);
-            listViewPlateg = new ListView();
+            listViewSposob = new ListView();
             Sposob_OP = new ColumnHeader();
-            Status_oder = new ColumnHeader();
+            listViewStatus = new ListView();
+            columnHeader1 = new ColumnHeader();
+            btnRemoveTovar = new Button();
+            groupBox2 = new GroupBox();
+            dataGridViewAllTovars = new DataGridView();
+            tovarBindingSource1 = new BindingSource(components);
+            btnAddTovar = new Button();
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTovat).BeginInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)plategBindingSource).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewAllTovars).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tovarBindingSource1).BeginInit();
             SuspendLayout();
             // 
             // label7
@@ -78,7 +82,7 @@
             // 
             btn_cancel.DialogResult = DialogResult.Cancel;
             btn_cancel.Font = new Font("Segoe UI", 20F);
-            btn_cancel.Location = new Point(811, 220);
+            btn_cancel.Location = new Point(766, 194);
             btn_cancel.Name = "btn_cancel";
             btn_cancel.Size = new Size(169, 98);
             btn_cancel.TabIndex = 27;
@@ -89,7 +93,7 @@
             // 
             btn_OK.DialogResult = DialogResult.OK;
             btn_OK.Font = new Font("Segoe UI", 20F);
-            btn_OK.Location = new Point(602, 220);
+            btn_OK.Location = new Point(558, 194);
             btn_OK.Name = "btn_OK";
             btn_OK.Size = new Size(153, 98);
             btn_OK.TabIndex = 26;
@@ -207,66 +211,25 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(dataGridView1);
+            groupBox1.Controls.Add(dataGridViewTovat);
             groupBox1.Location = new Point(33, 314);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1056, 250);
+            groupBox1.Size = new Size(905, 250);
             groupBox1.TabIndex = 33;
             groupBox1.TabStop = false;
             groupBox1.Text = "Товары в заказе";
             // 
-            // dataGridView1
+            // dataGridViewTovat
             // 
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, fullNameDataGridViewTextBoxColumn, priceDataGridViewTextBoxColumn, catiforiTDataGridViewTextBoxColumn, calloryDataGridViewTextBoxColumn });
-            dataGridView1.DataSource = tovarBindingSource;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 23);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1050, 224);
-            dataGridView1.TabIndex = 0;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.MinimumWidth = 6;
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // fullNameDataGridViewTextBoxColumn
-            // 
-            fullNameDataGridViewTextBoxColumn.DataPropertyName = "FullName";
-            fullNameDataGridViewTextBoxColumn.HeaderText = "FullName";
-            fullNameDataGridViewTextBoxColumn.MinimumWidth = 6;
-            fullNameDataGridViewTextBoxColumn.Name = "fullNameDataGridViewTextBoxColumn";
-            fullNameDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // priceDataGridViewTextBoxColumn
-            // 
-            priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            priceDataGridViewTextBoxColumn.HeaderText = "Price";
-            priceDataGridViewTextBoxColumn.MinimumWidth = 6;
-            priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
-            priceDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // catiforiTDataGridViewTextBoxColumn
-            // 
-            catiforiTDataGridViewTextBoxColumn.DataPropertyName = "Catifori_T";
-            catiforiTDataGridViewTextBoxColumn.HeaderText = "Catifori_T";
-            catiforiTDataGridViewTextBoxColumn.MinimumWidth = 6;
-            catiforiTDataGridViewTextBoxColumn.Name = "catiforiTDataGridViewTextBoxColumn";
-            catiforiTDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // calloryDataGridViewTextBoxColumn
-            // 
-            calloryDataGridViewTextBoxColumn.DataPropertyName = "Callory";
-            calloryDataGridViewTextBoxColumn.HeaderText = "Callory";
-            calloryDataGridViewTextBoxColumn.MinimumWidth = 6;
-            calloryDataGridViewTextBoxColumn.Name = "calloryDataGridViewTextBoxColumn";
-            calloryDataGridViewTextBoxColumn.Width = 125;
+            dataGridViewTovat.AutoGenerateColumns = false;
+            dataGridViewTovat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewTovat.DataSource = tovarBindingSource;
+            dataGridViewTovat.Dock = DockStyle.Fill;
+            dataGridViewTovat.Location = new Point(3, 23);
+            dataGridViewTovat.Name = "dataGridViewTovat";
+            dataGridViewTovat.RowHeadersWidth = 51;
+            dataGridViewTovat.Size = new Size(899, 224);
+            dataGridViewTovat.TabIndex = 0;
             // 
             // tovarBindingSource
             // 
@@ -287,36 +250,102 @@
             // 
             plategBindingSource.DataSource = typeof(MyEF.Entities.Plateg);
             // 
-            // listViewPlateg
+            // listViewSposob
             // 
-            listViewPlateg.CheckBoxes = true;
-            listViewPlateg.Columns.AddRange(new ColumnHeader[] { Sposob_OP, Status_oder });
-            listViewPlateg.FullRowSelect = true;
-            listViewPlateg.Location = new Point(522, 57);
-            listViewPlateg.MultiSelect = false;
-            listViewPlateg.Name = "listViewPlateg";
-            listViewPlateg.Size = new Size(556, 157);
-            listViewPlateg.TabIndex = 35;
-            listViewPlateg.UseCompatibleStateImageBehavior = false;
-            listViewPlateg.UseWaitCursor = true;
-            listViewPlateg.View = View.Details;
+            listViewSposob.CheckBoxes = true;
+            listViewSposob.Columns.AddRange(new ColumnHeader[] { Sposob_OP });
+            listViewSposob.FullRowSelect = true;
+            listViewSposob.Location = new Point(522, 31);
+            listViewSposob.MultiSelect = false;
+            listViewSposob.Name = "listViewSposob";
+            listViewSposob.Size = new Size(225, 157);
+            listViewSposob.TabIndex = 35;
+            listViewSposob.UseCompatibleStateImageBehavior = false;
+            listViewSposob.UseWaitCursor = true;
+            listViewSposob.View = View.Details;
             // 
             // Sposob_OP
             // 
             Sposob_OP.Text = "Выберите способ оплаты";
-            Sposob_OP.Width = 270;
+            Sposob_OP.Width = 220;
             // 
-            // Status_oder
+            // listViewStatus
             // 
-            Status_oder.Text = "Выбери Статус";
-            Status_oder.Width = 270;
+            listViewStatus.CheckBoxes = true;
+            listViewStatus.Columns.AddRange(new ColumnHeader[] { columnHeader1 });
+            listViewStatus.FullRowSelect = true;
+            listViewStatus.Location = new Point(753, 31);
+            listViewStatus.MultiSelect = false;
+            listViewStatus.Name = "listViewStatus";
+            listViewStatus.Size = new Size(205, 157);
+            listViewStatus.TabIndex = 36;
+            listViewStatus.UseCompatibleStateImageBehavior = false;
+            listViewStatus.UseWaitCursor = true;
+            listViewStatus.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Выберите статус оплаты";
+            columnHeader1.Width = 200;
+            // 
+            // btnRemoveTovar
+            // 
+            btnRemoveTovar.Font = new Font("Segoe UI", 14F);
+            btnRemoveTovar.Location = new Point(33, 570);
+            btnRemoveTovar.Name = "btnRemoveTovar";
+            btnRemoveTovar.Size = new Size(149, 46);
+            btnRemoveTovar.TabIndex = 39;
+            btnRemoveTovar.Text = "Удалить";
+            btnRemoveTovar.UseVisualStyleBackColor = true;
+            btnRemoveTovar.Click += btnRemoveTovar_Click;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dataGridViewAllTovars);
+            groupBox2.Location = new Point(33, 622);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(902, 235);
+            groupBox2.TabIndex = 38;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Все доступные товары";
+            // 
+            // dataGridViewAllTovars
+            // 
+            dataGridViewAllTovars.AutoGenerateColumns = false;
+            dataGridViewAllTovars.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewAllTovars.DataSource = tovarBindingSource1;
+            dataGridViewAllTovars.Dock = DockStyle.Fill;
+            dataGridViewAllTovars.Location = new Point(3, 23);
+            dataGridViewAllTovars.Name = "dataGridViewAllTovars";
+            dataGridViewAllTovars.RowHeadersWidth = 51;
+            dataGridViewAllTovars.Size = new Size(896, 209);
+            dataGridViewAllTovars.TabIndex = 0;
+            // 
+            // tovarBindingSource1
+            // 
+            tovarBindingSource1.DataSource = typeof(MyEF.Entities.Tovar);
+            // 
+            // btnAddTovar
+            // 
+            btnAddTovar.Font = new Font("Segoe UI", 14F);
+            btnAddTovar.Location = new Point(27, 863);
+            btnAddTovar.Name = "btnAddTovar";
+            btnAddTovar.Size = new Size(149, 46);
+            btnAddTovar.TabIndex = 37;
+            btnAddTovar.Text = "Добавить ";
+            btnAddTovar.UseVisualStyleBackColor = true;
+            btnAddTovar.Click += btnAddTovar_Click;
             // 
             // OderFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1090, 593);
-            Controls.Add(listViewPlateg);
+            ClientSize = new Size(975, 945);
+            Controls.Add(btnRemoveTovar);
+            Controls.Add(groupBox2);
+            Controls.Add(btnAddTovar);
+            Controls.Add(listViewStatus);
+            Controls.Add(listViewSposob);
             Controls.Add(groupBox1);
             Controls.Add(textBox6);
             Controls.Add(label4);
@@ -339,9 +368,12 @@
             Load += OderFormUnit_Load;
             ((System.ComponentModel.ISupportInitialize)oderBindingSource).EndInit();
             groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTovat).EndInit();
             ((System.ComponentModel.ISupportInitialize)tovarBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)plategBindingSource).EndInit();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewAllTovars).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tovarBindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -364,19 +396,20 @@
         private TextBox textBox6;
         private Label label4;
         private GroupBox groupBox1;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewTovat;
         private BindingSource tovarBindingSource;
         private ComboBox cB_Status;
         private BindingSource plategBindingSource;
         private DataGridViewTextBoxColumn oderDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn oderidDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn catiforiTDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn calloryDataGridViewTextBoxColumn;
-        private ListView listViewPlateg;
+        private ListView listViewSposob;
         private ColumnHeader Sposob_OP;
-        private ColumnHeader Status_oder;
+        private ListView listViewStatus;
+        private ColumnHeader columnHeader1;
+        private Button btnRemoveTovar;
+        private GroupBox groupBox2;
+        private DataGridView dataGridViewAllTovars;
+        private BindingSource tovarBindingSource1;
+        private Button btnAddTovar;
     }
 }
