@@ -12,7 +12,7 @@ namespace dodoEF.MyEF.Entities
         public string Catifori_T { get; set; }
         public int Callory { get; set; }
         // Связь многие-ко-многим с заказами через OrderTovar
-        public List<OderTovar> OrderTovars { get; set; } = new();
+        public List<OderTovar> OderTovars { get; set; } = new();
 
         // Связь многие-ко-многим с ингредиентами через TovarIngr
         public List<TovarIngr> TovarIngrs { get; set; } = new();

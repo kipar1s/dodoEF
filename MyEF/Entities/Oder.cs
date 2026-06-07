@@ -9,20 +9,20 @@ namespace dodoEF.MyEF.Entities
         public int Id { get; set; }
 
         // Внешний ключ к клиенту
-        public int clientId { get; set; }
+        public int? clientId { get; set; }
         public Client client { get; set; }
 
         public DateTime date { get; set; }
         public int Summa { get; set; }
-        public string Status { get; set; }
-        public string Adress_d { get; set; }
+        public string? Status { get; set; }
+        public string? Adress_d { get; set; }
 
         // Внешний ключ к платежу (один-к-одному)
         public int plategid { get; set; }
         public Plateg plategs { get; set; }
 
         // Внешний ключ к сотруднику
-        public int personalId { get; set; }
+        public int? personalId { get; set; } = 0;
         public Personal personal { get; set; }
 
         // Связь многие-ко-многим с товарами через промежуточную таблицу OrderTovar

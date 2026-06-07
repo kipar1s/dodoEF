@@ -45,8 +45,32 @@
             label7 = new Label();
             comB_Categori = new ComboBox();
             categoriBindingSource = new BindingSource(components);
+            groupBox1 = new GroupBox();
+            dataGridViewOders = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            dateDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            summaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            statusDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            adressdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            oderBindingSource = new BindingSource(components);
+            btnAddOder = new Button();
+            groupBox2 = new GroupBox();
+            dataGridViewFreeOders = new DataGridView();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn4 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            freeOderBindingSource = new BindingSource(components);
+            btnRemoveOder = new Button();
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)categoriBindingSource).BeginInit();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOders).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)oderBindingSource).BeginInit();
+            groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFreeOders).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)freeOderBindingSource).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -144,22 +168,26 @@
             // btn_OK
             // 
             btn_OK.DialogResult = DialogResult.OK;
-            btn_OK.Location = new Point(59, 271);
+            btn_OK.Font = new Font("Segoe UI", 14F);
+            btn_OK.Location = new Point(515, 52);
             btn_OK.Name = "btn_OK";
-            btn_OK.Size = new Size(94, 29);
+            btn_OK.Size = new Size(121, 46);
             btn_OK.TabIndex = 12;
             btn_OK.Text = "OK";
             btn_OK.UseVisualStyleBackColor = true;
+            btn_OK.Click += btn_OK_Click;
             // 
             // btn_cancel
             // 
             btn_cancel.DialogResult = DialogResult.Cancel;
-            btn_cancel.Location = new Point(280, 271);
+            btn_cancel.Font = new Font("Segoe UI", 14F);
+            btn_cancel.Location = new Point(642, 52);
             btn_cancel.Name = "btn_cancel";
-            btn_cancel.Size = new Size(94, 29);
+            btn_cancel.Size = new Size(126, 46);
             btn_cancel.TabIndex = 13;
             btn_cancel.Text = "Отмена";
             btn_cancel.UseVisualStyleBackColor = true;
+            btn_cancel.Click += btn_cancel_Click;
             // 
             // label7
             // 
@@ -185,11 +213,173 @@
             // 
             categoriBindingSource.DataSource = typeof(MyEF.Entities.Categori);
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(dataGridViewOders);
+            groupBox1.Location = new Point(27, 254);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(780, 160);
+            groupBox1.TabIndex = 16;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Заказы сотрудника";
+            // 
+            // dataGridViewOders
+            // 
+            dataGridViewOders.AutoGenerateColumns = false;
+            dataGridViewOders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewOders.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, dateDataGridViewTextBoxColumn, summaDataGridViewTextBoxColumn, statusDataGridViewTextBoxColumn, adressdDataGridViewTextBoxColumn });
+            dataGridViewOders.DataSource = oderBindingSource;
+            dataGridViewOders.Dock = DockStyle.Fill;
+            dataGridViewOders.Location = new Point(3, 23);
+            dataGridViewOders.Name = "dataGridViewOders";
+            dataGridViewOders.RowHeadersWidth = 51;
+            dataGridViewOders.Size = new Size(774, 134);
+            dataGridViewOders.TabIndex = 0;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.MinimumWidth = 6;
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            dateDataGridViewTextBoxColumn.DataPropertyName = "date";
+            dateDataGridViewTextBoxColumn.HeaderText = "date";
+            dateDataGridViewTextBoxColumn.MinimumWidth = 6;
+            dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            dateDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // summaDataGridViewTextBoxColumn
+            // 
+            summaDataGridViewTextBoxColumn.DataPropertyName = "Summa";
+            summaDataGridViewTextBoxColumn.HeaderText = "Summa";
+            summaDataGridViewTextBoxColumn.MinimumWidth = 6;
+            summaDataGridViewTextBoxColumn.Name = "summaDataGridViewTextBoxColumn";
+            summaDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // statusDataGridViewTextBoxColumn
+            // 
+            statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            statusDataGridViewTextBoxColumn.MinimumWidth = 6;
+            statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            statusDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // adressdDataGridViewTextBoxColumn
+            // 
+            adressdDataGridViewTextBoxColumn.DataPropertyName = "Adress_d";
+            adressdDataGridViewTextBoxColumn.HeaderText = "Adress_d";
+            adressdDataGridViewTextBoxColumn.MinimumWidth = 6;
+            adressdDataGridViewTextBoxColumn.Name = "adressdDataGridViewTextBoxColumn";
+            adressdDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // oderBindingSource
+            // 
+            oderBindingSource.DataSource = typeof(MyEF.Entities.Oder);
+            // 
+            // btnAddOder
+            // 
+            btnAddOder.DialogResult = DialogResult.OK;
+            btnAddOder.Font = new Font("Segoe UI", 14F);
+            btnAddOder.Location = new Point(30, 642);
+            btnAddOder.Name = "btnAddOder";
+            btnAddOder.Size = new Size(149, 46);
+            btnAddOder.TabIndex = 17;
+            btnAddOder.Text = "Добавить ";
+            btnAddOder.UseVisualStyleBackColor = true;
+            btnAddOder.Click += btnAddOder_Click;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(dataGridViewFreeOders);
+            groupBox2.Location = new Point(27, 476);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(780, 160);
+            groupBox2.TabIndex = 18;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Все свободные заказы";
+            // 
+            // dataGridViewFreeOders
+            // 
+            dataGridViewFreeOders.AutoGenerateColumns = false;
+            dataGridViewFreeOders.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewFreeOders.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4, dataGridViewTextBoxColumn5 });
+            dataGridViewFreeOders.DataSource = freeOderBindingSource;
+            dataGridViewFreeOders.Dock = DockStyle.Fill;
+            dataGridViewFreeOders.Location = new Point(3, 23);
+            dataGridViewFreeOders.Name = "dataGridViewFreeOders";
+            dataGridViewFreeOders.RowHeadersWidth = 51;
+            dataGridViewFreeOders.Size = new Size(774, 134);
+            dataGridViewFreeOders.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            dataGridViewTextBoxColumn1.HeaderText = "Id";
+            dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewTextBoxColumn2.DataPropertyName = "date";
+            dataGridViewTextBoxColumn2.HeaderText = "date";
+            dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            dataGridViewTextBoxColumn2.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewTextBoxColumn3.DataPropertyName = "Summa";
+            dataGridViewTextBoxColumn3.HeaderText = "Summa";
+            dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            dataGridViewTextBoxColumn3.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            dataGridViewTextBoxColumn4.DataPropertyName = "Status";
+            dataGridViewTextBoxColumn4.HeaderText = "Status";
+            dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            dataGridViewTextBoxColumn4.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.DataPropertyName = "Adress_d";
+            dataGridViewTextBoxColumn5.HeaderText = "Adress_d";
+            dataGridViewTextBoxColumn5.MinimumWidth = 6;
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.Width = 125;
+            // 
+            // freeOderBindingSource
+            // 
+            freeOderBindingSource.DataSource = typeof(MyEF.Entities.Oder);
+            // 
+            // btnRemoveOder
+            // 
+            btnRemoveOder.DialogResult = DialogResult.OK;
+            btnRemoveOder.Font = new Font("Segoe UI", 14F);
+            btnRemoveOder.Location = new Point(30, 424);
+            btnRemoveOder.Name = "btnRemoveOder";
+            btnRemoveOder.Size = new Size(149, 46);
+            btnRemoveOder.TabIndex = 19;
+            btnRemoveOder.Text = "Удалить";
+            btnRemoveOder.UseVisualStyleBackColor = true;
+            btnRemoveOder.Click += btnRemoveOder_Click;
+            // 
             // PersonalFormUnit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(504, 312);
+            ClientSize = new Size(819, 749);
+            Controls.Add(btnRemoveOder);
+            Controls.Add(groupBox2);
+            Controls.Add(btnAddOder);
+            Controls.Add(groupBox1);
             Controls.Add(comB_Categori);
             Controls.Add(label7);
             Controls.Add(btn_cancel);
@@ -206,8 +396,15 @@
             Controls.Add(label1);
             Name = "PersonalFormUnit";
             Text = "Форма \"Сотрудник\"";
+            FormClosing += PersonalFormUnit_FormClosing;
             ((System.ComponentModel.ISupportInitialize)personalBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)categoriBindingSource).EndInit();
+            groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewOders).EndInit();
+            ((System.ComponentModel.ISupportInitialize)oderBindingSource).EndInit();
+            groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewFreeOders).EndInit();
+            ((System.ComponentModel.ISupportInitialize)freeOderBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -230,5 +427,23 @@
         private Label label7;
         private ComboBox comB_Categori;
         private BindingSource categoriBindingSource;
+        private GroupBox groupBox1;
+        private DataGridView dataGridViewOders;
+        private BindingSource oderBindingSource;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn summaDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn adressdDataGridViewTextBoxColumn;
+        private Button btnAddOder;
+        private GroupBox groupBox2;
+        private DataGridView dataGridViewFreeOders;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private BindingSource freeOderBindingSource;
+        private Button btnRemoveOder;
     }
 }

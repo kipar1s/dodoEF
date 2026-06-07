@@ -1,4 +1,5 @@
 using dodoEF.ClientForm;
+using dodoEF.CurierForm;
 using dodoEF.EnumForm;
 using dodoEF.MyEF.Entities;
 using dodoEF.OderForm;
@@ -16,13 +17,13 @@ namespace dodoEF
             InitializeComponent();
             db = new dodoEF.MyEF.Entities.ApplicationDbContext();
             currentUser = user;
-            
+
             // Отображаем информацию о текущем пользователе
             this.Text = $"Додо Пицца - {currentUser.FullName} ({currentUser.Role})";
-            
+
             // Убеждаемся что меню видимо
             menuStrip1.Visible = true;
-            
+
             // Настраиваем интерфейс в зависимости от прав пользователя после загрузки формы
             this.Load += DodoMainForm_Load;
         }
@@ -30,15 +31,15 @@ namespace dodoEF
         private void DodoMainForm_Load(object? sender, EventArgs e)
         {
             ConfigureAccessRights();
-            
+
             // Принудительно показываем оба меню для отладки
             справочникToolStripMenuItem.Visible = true;
             перечисленияToolStripMenuItem.Visible = true;
-            
+
             // Отладочная информация
             var permissions = AccessControl.GetPermissions(currentUser.Role);
             string permissionsList = string.Join(", ", permissions);
-            
+
             MessageBox.Show($"Роль из БД: '{currentUser.Role}'\nКоличество прав: {permissions.Count}\n\nСправочник Visible: {справочникToolStripMenuItem.Visible}\nПеречисления Visible: {перечисленияToolStripMenuItem.Visible}\n\nСотрудники: {сотрудникиToolStripMenuItem.Visible}\nЗаказ: {заказToolStripMenuItem.Visible}\nКлиент: {клиентToolStripMenuItem.Visible}\nТовар: {товарToolStripMenuItem.Visible}", "Отладка меню");
         }
 
@@ -52,26 +53,26 @@ namespace dodoEF
             заказToolStripMenuItem.Visible = permissions.Contains("OderListForm");
             клиентToolStripMenuItem.Visible = permissions.Contains("ClientListForm");
             товарToolStripMenuItem.Visible = permissions.Contains("TovarListForm");
-            
+
             категорииToolStripMenuItem.Visible = permissions.Contains("CategoriEnumForm");
             оцениваемостьToolStripMenuItem.Visible = permissions.Contains("EvelobEnumForm");
             ингридиентыToolStripMenuItem.Visible = permissions.Contains("IngrEnumForm");
             платежToolStripMenuItem.Visible = permissions.Contains("PlategEnumForm");
 
             // ВСЕГДА показываем родительские меню, если есть хотя бы один видимый подпункт
-            bool hasVisibleSpravo = сотрудникиToolStripMenuItem.Visible || 
-                                     заказToolStripMenuItem.Visible || 
-                                     клиентToolStripMenuItem.Visible || 
+            bool hasVisibleSpravo = сотрудникиToolStripMenuItem.Visible ||
+                                     заказToolStripMenuItem.Visible ||
+                                     клиентToolStripMenuItem.Visible ||
                                      товарToolStripMenuItem.Visible;
-                                     
-            bool hasVisiblePerech = категорииToolStripMenuItem.Visible || 
-                                     оцениваемостьToolStripMenuItem.Visible || 
-                                     ингридиентыToolStripMenuItem.Visible || 
+
+            bool hasVisiblePerech = категорииToolStripMenuItem.Visible ||
+                                     оцениваемостьToolStripMenuItem.Visible ||
+                                     ингридиентыToolStripMenuItem.Visible ||
                                      платежToolStripMenuItem.Visible;
 
             справочникToolStripMenuItem.Visible = hasVisibleSpravo;
             перечисленияToolStripMenuItem.Visible = hasVisiblePerech;
-            
+
             // Принудительно обновляем меню
             menuStrip1.Refresh();
             this.Refresh();
@@ -119,7 +120,7 @@ namespace dodoEF
         {
             // Очищаем таблицы в порядке обратном зависимостям (чтобы не нарушить внешние ключи)
             db.PersonalEvelobilitile.RemoveRange(db.PersonalEvelobilitile);
-            db.OrderTovars.RemoveRange(db.OrderTovars);
+            db.OderTovars.RemoveRange(db.OderTovars);
             db.TovarIngrs.RemoveRange(db.TovarIngrs);
             db.Oder.RemoveRange(db.Oder);
             db.DbPersonal.RemoveRange(db.DbPersonal);
@@ -281,7 +282,7 @@ namespace dodoEF
         new OderTovar { OderId = oderIds[4], TovarId = tovarIds[3], Quantity = 1 },
         new OderTovar { OderId = oderIds[4], TovarId = tovarIds[5], Quantity = 1 }
     };
-            db.OrderTovars.AddRange(orderTovars);
+            db.OderTovars.AddRange(orderTovars);
             db.SaveChanges();
 
             // 11. PersonalEvelobilitile
@@ -379,6 +380,85 @@ namespace dodoEF
             else
             {
                 MessageBox.Show("У вас нет доступа к этой форме!", "Доступ запрещен", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void проверкаБДToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string projectRoot = Path.Combine(baseDirectory, "..", "..", "..");
+            string dbPath = Path.GetFullPath(Path.Combine(projectRoot, "dodoDb2.accdb"));
+            string connStr = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={dbPath}";
+
+            using (var conn = new System.Data.OleDb.OleDbConnection(connStr))
+            {
+                conn.Open();
+
+                // Проверяем, есть ли колонки (таблица DbPersonal!)
+                var schema = conn.GetOleDbSchemaTable(
+                    System.Data.OleDb.OleDbSchemaGuid.Columns,
+                    new object[] { null, null, "DbPersonal", null });
+
+                bool hasDiscriminator = false;
+                bool hasNumVY = false;
+                bool hasNumCar = false;
+
+                foreach (System.Data.DataRow row in schema.Rows)
+                {
+                    string colName = row["COLUMN_NAME"].ToString();
+                    if (colName == "PersonalType") hasDiscriminator = true;
+                    if (colName == "Num_VY") hasNumVY = true;
+                    if (colName == "Num_Car") hasNumCar = true;
+                }
+
+                // Добавляем недостающие
+                if (!hasDiscriminator)
+                {
+                    using (var cmd = new System.Data.OleDb.OleDbCommand(
+                        "ALTER TABLE DbPersonal ADD COLUMN PersonalType VARCHAR(255) DEFAULT 'Personal'", conn))
+                        cmd.ExecuteNonQuery();
+                }
+
+                if (!hasNumVY)
+                {
+                    using (var cmd = new System.Data.OleDb.OleDbCommand(
+                        "ALTER TABLE DbPersonal ADD COLUMN Num_VY INTEGER", conn))
+                        cmd.ExecuteNonQuery();
+                }
+
+                if (!hasNumCar)
+                {
+                    using (var cmd = new System.Data.OleDb.OleDbCommand(
+                        "ALTER TABLE DbPersonal ADD COLUMN Num_Car INTEGER", conn))
+                        cmd.ExecuteNonQuery();
+                }
+
+                // Обновляем существующие записи
+                using (var cmd = new System.Data.OleDb.OleDbCommand(
+                    "UPDATE DbPersonal SET PersonalType = 'Personal' WHERE PersonalType IS NULL", conn))
+                    cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Готово! Добавлено:\n" +
+                    $"Discriminator: {!hasDiscriminator}\n" +
+                    $"Num_VY: {!hasNumVY}\n" +
+                    $"Num_Car: {!hasNumCar}");
+            }
+        }
+        
+
+        private void курьерыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (AccessControl.HasAccess(currentUser.Role, "CurierListForm"))
+            {
+                CurierListForm curierListForm = new CurierListForm();
+                curierListForm.MdiParent = this;
+                curierListForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет доступа!");
             }
         }
     }
