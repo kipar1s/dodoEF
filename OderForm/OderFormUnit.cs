@@ -12,7 +12,7 @@ namespace dodoEF.OderForm
         private ApplicationDbContext db;
         private Oder item;
         private int item_id = -1;
-        
+
 
         private readonly string[] sposoby = { "Наличные", "Картой", "Онлайн", "Сертификат" };
         private readonly string[] statusy = { "Оплачено", "Отменено", "В процессе" };
@@ -414,39 +414,62 @@ namespace dodoEF.OderForm
                 item.plategs.Sposob_PL = sposob;
                 item.plategs.Status_PL = statusPl;
             }
-
-            // ===== СОХРАНЕНИЕ =====
-            try
+            // Добавляем новые OderTovar из грида
+            foreach (DataGridViewRow row in dataGridViewTovat.Rows)
             {
-                if (!is_edit)
+                if (row.IsNewRow) continue;
+                int tovarId = (int)row.Cells["TovarId"].Value;
+                int quantity = (int)row.Cells["Quantity"].Value;
+
+                // Проверяем, существует ли уже такая связь в базе
+                var existing = db.OderTovars.Local
+                    .FirstOrDefault(ot => ot.OderId == item.Id && ot.TovarId == tovarId);
+                if (existing == null && item.Id == 0) // новый заказ
                 {
-                    // 1. Сохраняем платёж, получаем Id
-                    if (item.plategs.Id == 0)
+                    item.OderTovars.Add(new OderTovar
                     {
-                        db.Plateg.Add(item.plategs);
+                        TovarId = tovarId,
+                        Quantity = quantity
+                        // OderId проставится автоматически при сохранении заказа
+                    });
+                }
+                else if (existing != null)
+                {
+                    existing.Quantity = quantity; // обновляем количество
+                }
+                // ===== СОХРАНЕНИЕ =====
+                try
+                {
+                    if (!is_edit)
+                    {
+                        // 1. Сохраняем платёж, получаем Id
+                        if (item.plategs.Id == 0)
+                        {
+                            db.Plateg.Add(item.plategs);
+                            db.SaveChanges();
+                        }
+
+                        // 2. Устанавливаем FK в заказе
+                        item.plategid = item.plategs.Id;
+
+                        // 3. Сохраняем заказ (вместе с товарами)
+                        db.Oder.Add(item);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        db.Oder.Update(item);
                         db.SaveChanges();
                     }
 
-                    // 2. Устанавливаем FK в заказе
-                    item.plategid = item.plategs.Id;
-
-                    // 3. Сохраняем заказ (вместе с товарами)
-                    db.Oder.Add(item);
-                    db.SaveChanges();
+                    DialogResult = DialogResult.OK;
+                    Close();
                 }
-                else
+                catch (Exception ex)
                 {
-                    db.Oder.Update(item);
-                    db.SaveChanges();
+                    MessageBox.Show("Ошибка сохранения: " + ex.Message + "\n\n" +
+                        ex.InnerException?.Message);
                 }
-
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Ошибка сохранения: " + ex.Message + "\n\n" +
-                    ex.InnerException?.Message);
             }
         }
     }
